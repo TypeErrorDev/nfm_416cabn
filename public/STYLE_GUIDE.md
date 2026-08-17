@@ -67,55 +67,58 @@ Headings: uppercase, `font-weight: 700`, `text-wrap: balance`.
 
 ---
 
-## Tailwind config (Next.js)
+## Theme setup (Tailwind v4 — CSS-first, no config file)
 
-```ts
-// tailwind.config.ts
-import type { Config } from "tailwindcss";
+Tailwind v4 reads design tokens straight out of your CSS via `@theme`, and auto-detects content — no `tailwind.config.ts` and no `content: [...]` array needed.
 
-const config: Config = {
-  darkMode: "class",
-  content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
-  theme: {
-    extend: {
-      colors: {
-        ink: { DEFAULT: "#EDE8D8", dim: "#B9B3A0" },
-        ground: { DEFAULT: "#1B1F16", 2: "#242A1C", 3: "#2E3524" },
-        olive: { DEFAULT: "#4A5230", line: "#5C6740" },
-        navy: "#16232F",
-        red: { DEFAULT: "#B4402E", dim: "#8C3125" },
-        brass: { DEFAULT: "#B7995F", dim: "#8C7645" },
-        rule: "rgba(237,232,216,0.14)",
-      },
-      fontFamily: {
-        display: ["var(--font-display)", "Arial Narrow", "sans-serif"],
-        body: ["var(--font-body)", "Georgia", "serif"],
-        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
-      },
-      fontSize: {
-        hero: ["clamp(2.6rem, 7vw, 5.2rem)", { lineHeight: "0.96" }],
-        h2: ["clamp(1.7rem, 3.4vw, 2.3rem)", { lineHeight: "1.15" }],
-      },
-      letterSpacing: {
-        label: "0.14em",
-        eyebrow: "0.22em",
-      },
-      spacing: {
-        gutter: "clamp(20px, 5vw, 56px)",
-        section: "clamp(56px, 9vw, 96px)",
-      },
-      borderRadius: {
-        sm2: "2px",
-      },
-    },
-  },
-  plugins: [],
-};
+```css
+/* app/globals.css */
+@import "tailwindcss";
 
-export default config;
+@theme {
+  --color-ink: #EDE8D8;
+  --color-ink-dim: #B9B3A0;
+
+  --color-ground: #1B1F16;
+  --color-ground-2: #242A1C;
+  --color-ground-3: #2E3524;
+
+  --color-olive: #4A5230;
+  --color-olive-line: #5C6740;
+  --color-navy: #16232F;
+
+  --color-red: #B4402E;
+  --color-red-dim: #8C3125;
+
+  --color-brass: #B7995F;
+  --color-brass-dim: #8C7645;
+
+  --color-rule: rgba(237, 232, 216, 0.14);
+
+  --font-display: var(--font-oswald), "Arial Narrow", "Roboto Condensed", sans-serif;
+  --font-body: var(--font-source-serif), Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-plex-mono), "SF Mono", ui-monospace, monospace;
+
+  --text-hero: clamp(2.6rem, 7vw, 5.2rem);
+  --text-hero--line-height: 0.96;
+  --text-h2: clamp(1.7rem, 3.4vw, 2.3rem);
+  --text-h2--line-height: 1.15;
+
+  --tracking-label: 0.14em;
+  --tracking-eyebrow: 0.22em;
+
+  --spacing-gutter: clamp(20px, 5vw, 56px);
+  --spacing-section: clamp(56px, 9vw, 96px);
+
+  --radius-sm2: 2px;
+}
 ```
 
+This alone generates `bg-ink`, `text-brass`, `border-rule`, `font-display`, `text-hero`, `tracking-eyebrow`, `p-gutter`, `py-section`, `rounded-sm2`, etc. — no plugin config, no `theme.extend`.
+
 ## next/font setup
+
+next/font still generates a CSS variable per font; point `@theme` at those variables (note the `inline` keyword — it's required whenever a theme variable references another CSS variable rather than a literal value):
 
 ```ts
 // app/fonts.ts
@@ -124,23 +127,47 @@ import { Oswald, Source_Serif_4, IBM_Plex_Mono } from "next/font/google";
 export const display = Oswald({
   subsets: ["latin"],
   weight: ["500", "600", "700"],
-  variable: "--font-display",
+  variable: "--font-oswald",
 });
 
 export const body = Source_Serif_4({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
-  variable: "--font-body",
+  variable: "--font-source-serif",
 });
 
 export const mono = IBM_Plex_Mono({
   subsets: ["latin"],
   weight: ["400", "500"],
-  variable: "--font-mono",
+  variable: "--font-plex-mono",
 });
 ```
 
+```css
+/* app/globals.css — pair with the @theme block above */
+@theme inline {
+  --font-display: var(--font-oswald), "Arial Narrow", sans-serif;
+  --font-body: var(--font-source-serif), Georgia, serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+}
+```
+
+```tsx
+// app/layout.tsx
+import { display, body, mono } from "./fonts";
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
+      <body className="bg-ground text-ink font-body antialiased">{children}</body>
+    </html>
+  );
+}
+```
+
 ## Component classes (globals.css)
+
+`@layer components` and `@apply` are unchanged in v4:
 
 ```css
 @layer components {
