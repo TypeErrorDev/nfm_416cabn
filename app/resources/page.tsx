@@ -1,29 +1,6 @@
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 
-const questions = [
-  {
-    question: "When will registration open?",
-    answer: "Registration information has not yet been released. Check the event updates on the home page and this resource hub for organizer-approved announcements.",
-  },
-  {
-    question: "Where can I find the event schedule and route?",
-    answer: "The event schedule, route, distance, start and finish locations, and checkpoint information are still awaiting organizer confirmation. They will be published in the Event Information section when approved.",
-  },
-  {
-    question: "Which completion time applies to me?",
-    answer: "The standards selector on the Event Information section displays the age-group and category times supplied for this event. Confirm the complete official requirements in the final participant instructions before relying on a time standard.",
-  },
-  {
-    question: "What uniform, rucksack, or equipment should I bring?",
-    answer: "The approved uniform, rucksack configuration, dry-weight requirement, and inspection process have not yet been confirmed for this event. Please wait for the official participant instructions rather than treating general training material as an event requirement.",
-  },
-  {
-    question: "Where can I get help with a participant question?",
-    answer: "The event's official point of contact and contact method have not yet been published. Contact information will be added here once provided by the organizers.",
-  },
-];
-
 export default function ResourcesPage() {
   return (
     <>
