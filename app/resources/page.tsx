@@ -83,30 +83,11 @@ export default function ResourcesPage() {
             </ul>
           </section>
 
-          <section className="resources-section" aria-labelledby="faq-title">
+          <section className="resources-section" aria-labelledby="faq-link-title">
             <div className="resources-section-heading">
               <p className="eyebrow">Common questions</p>
-              <h2 id="faq-title">Frequently asked questions</h2>
-              <p>Answers will be expanded as official event information is released. Items not yet confirmed are identified below.</p>
-            </div>
-            <div className="resource-faq">
-              {questions.map((item) => (
-                <details key={item.question}>
-                  <summary>{item.question}</summary>
-                  <p>{item.answer}</p>
-                </details>
-              ))}
-            </div>
-          </section>
-
-          <section className="resources-section" aria-labelledby="contact-title">
-            <div className="resources-section-heading">
-              <p className="eyebrow">Need assistance?</p>
-              <h2 id="contact-title">Organizer contact</h2>
-            </div>
-            <div className="resource-contact">
-              <h3>Contact information forthcoming</h3>
-              <p>The official event point of contact and preferred method for participant questions will be posted here once confirmed. No personal or unofficial contact details are listed.</p>
+              <h2 id="faq-link-title">Frequently asked questions</h2>
+              <p>Find answers and direct links on the <Link href="/#faq">main event FAQ section</Link>.</p>
             </div>
           </section>
 
