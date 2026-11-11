@@ -5,7 +5,7 @@ const eventFacts = [
   { label: "Date", value: "23 January 2027" },
   { label: "Location", value: "Oceanside, California" },
   { label: "Host unit", value: "416th Civil Affairs Battalion" },
-  { label: "Registration", value: "Details forthcoming" },
+  { label: "Registration", value: "Open" },
 ];
 
 const scheduleItems = [
@@ -25,7 +25,7 @@ const routeItems = [
 const standards = [
   { title: "Eligibility", text: "Participant eligibility and any age, status, or registration requirements will be listed after organizer confirmation." },
   { title: "Uniform and equipment", text: "The approved uniform, ruck configuration, dry-weight standard, and inspection process will be published in the event instructions." },
-  { title: "Completion criteria", text: "The official distance, time standard, and completion verification process will be provided before registration opens." },
+  { title: "Completion criteria", text: "The official distance and completion verification process will be provided in the participant instructions." },
 ];
 
 const trainingTopics = [
@@ -60,7 +60,8 @@ export default function Home() {
                 ))}
               </dl>
               <div className="hero-actions">
-                <a className="btn btn-primary" href="#event-info">Event information <span aria-hidden="true">↗</span></a>
+                <a className="btn btn-primary" href="/register">Register now <span aria-hidden="true">↗</span></a>
+                <a className="btn btn-ghost" href="#event-info">Event information</a>
                 <a className="btn btn-ghost" href="#preparation">Training &amp; preparation</a>
               </div>
               <p className="hero-note">Event-specific instructions will be updated as details are confirmed.</p>
@@ -90,7 +91,7 @@ export default function Home() {
               <span className="fact-label">{fact.label}</span>
             </div>
           ))}
-          <div className="fact-tile"><span className="fact-index">04</span><span className="fact-value">Coming soon</span><span className="fact-label">Registration information</span></div>
+          <div className="fact-tile"><span className="fact-index">04</span><span className="fact-value">Open</span><span className="fact-label">Registration</span></div>
         </section>
 
         <section id="history" className="content-section history-section" aria-labelledby="history-title">
@@ -131,7 +132,7 @@ export default function Home() {
             </ol>
           </div>
 
-          <div className="info-block route-block">
+          <div id="route-and-checkpoints" className="info-block route-block">
             <div className="info-block-heading"><div><p className="eyebrow">Course details</p><h3>Route &amp; checkpoints</h3></div><span className="placeholder-tag">Route pending</span></div>
             <div className="route-placeholder" role="note" aria-label="Route map placeholder">
               <div className="route-placeholder-lines" aria-hidden="true"><span /><span /><span /></div>
@@ -173,12 +174,12 @@ export default function Home() {
         </section>
 
         <section id="updates" className="content-section updates-section" aria-labelledby="updates-title">
-          <div className="updates-heading"><div><p className="eyebrow">From the organizers</p><h2 id="updates-title">Event updates</h2></div><p>Announcements, participant guidance, and registration information will be published here as they become available.</p></div>
+          <div className="updates-heading"><div><p className="eyebrow">From the organizers</p><h2 id="updates-title">Event updates</h2></div><p>Announcements and participant guidance will be published here as they become available.</p></div>
           <article className="update-card"><div className="update-meta"><span>416th Civil Affairs Battalion</span><span>Event notice</span></div><h3>Norwegian Foot March · Oceanside</h3><p>The event website is being prepared. Check back for confirmed details and the official participant information packet.</p></article>
         </section>
       </main>
       <footer className="site-footer">
-        <div className="footer-main"><div className="footer-brand"><span className="footer-unit">416th</span><div><p className="footer-title">Norwegian Foot March</p><p className="footer-subtitle">Oceanside, California · 23 January 2027</p></div></div><div className="footer-links"><a href="#history">History</a><a href="#event-info">Event information</a><a href="#preparation">Preparation</a><a href="#updates">Updates</a><a href="#main-content">Back to top ↑</a></div></div>
+        <div className="footer-main"><div className="footer-brand"><span className="footer-unit">416th</span><div><p className="footer-title">Norwegian Foot March</p><p className="footer-subtitle">Oceanside, California · 23 January 2027</p></div></div><div className="footer-links"><a href="#history">History</a><a href="#event-info">Event information</a><a href="#preparation">Preparation</a><a href="#updates">Updates</a><a href="#faq">FAQ</a><a href="#contact">Contact</a><a href="#main-content">Back to top ↑</a></div></div>
         <div className="footer-bottom"><span>416th Civil Affairs Battalion</span><span>Official event information · Details subject to confirmation</span></div>
       </footer>
     </>
