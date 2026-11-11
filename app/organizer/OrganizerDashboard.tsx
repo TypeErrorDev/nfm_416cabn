@@ -24,7 +24,7 @@ type ViewState = "loading" | "ready" | "unauthorized" | "error";
 
 function csvCell(value: string | number | boolean | null) {
   let text = value === null ? "" : String(value);
-  if (/^[=+\\-@\\t\\r]/.test(text)) text = "'" + text;
+  if (/^[=+\\-@]/.test(text)) text = "'" + text;
   return '"' + text.replace(/"/g, '""') + '"';
 }
 
