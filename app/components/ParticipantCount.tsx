@@ -11,10 +11,10 @@ export default function ParticipantCount() {
 
   useEffect(() => {
     let active = true;
+    const supabase = getSupabaseBrowserClient();
 
     async function loadCount() {
       try {
-        const supabase = getSupabaseBrowserClient();
         const { data, error } = await supabase.rpc("get_public_participant_count");
 
         if (error) throw error;
@@ -29,18 +29,29 @@ export default function ParticipantCount() {
           setState("ready");
         }
       } catch {
-        if (active) setState("error");
+        if (active && count === null) setState("error");
       }
     }
 
     void loadCount();
-    const intervalId = window.setInterval(() => {
-      if (document.visibilityState === "visible") void loadCount();
-    }, 30_000);
+
+    const channel = supabase
+      .channel("public:participant-count")
+      .on("broadcast", { event: "participant_count_updated" }, () => {
+        void loadCount();
+      })
+      .subscribe((status) => {
+        if (!active) return;
+        if (status === "SUBSCRIBED") {
+          setState((current) => (current === "error" ? "loading" : current));
+        } else if (status === "CHANNEL_ERROR" || status === "TIMED_OUT" || status === "CLOSED") {
+          setState((current) => (current === "ready" ? current : "error"));
+        }
+      });
 
     return () => {
       active = false;
-      window.clearInterval(intervalId);
+      void supabase.removeChannel(channel);
     };
   }, []);
 
@@ -50,11 +61,7 @@ export default function ParticipantCount() {
         <div>
           <p className="eyebrow">The march is taking shape</p>
           <p className="participant-count-value" aria-live="polite" aria-atomic="true">
-            {state === "loading" && count === null
-              ? "—"
-              : state === "error" && count === null
-                ? "—"
-                : (count ?? 0).toLocaleString("en-US")}
+            {count === null ? "—" : count.toLocaleString("en-US")}
           </p>
           <h2>Participants Registered</h2>
           <p className="participant-count-caption">
@@ -65,8 +72,8 @@ export default function ParticipantCount() {
         </div>
         <div className="participant-count-status">
           <span className={state === "ready" ? "participant-count-dot is-live" : "participant-count-dot"} aria-hidden="true" />
-          <span>{state === "ready" ? "LIVE COUNT" : state === "loading" ? "LOADING" : "UPDATING"}</span>
-          <span className="participant-count-refresh">Refreshes every 30 seconds</span>
+          <span>{state === "ready" ? "LIVE COUNT" : state === "loading" ? "CONNECTING" : "RECONNECTING"}</span>
+          <span className="participant-count-refresh">Updates when a registration is added or removed</span>
         </div>
       </div>
     </section>
