@@ -23,7 +23,8 @@ type Participant = {
 type ViewState = "loading" | "ready" | "unauthorized" | "error";
 
 function csvCell(value: string | number | boolean | null) {
-  const text = value === null ? "" : String(value);
+  let text = value === null ? "" : String(value);
+  if (/^[=+\\-@\\t\\r]/.test(text)) text = "'" + text;
   return '"' + text.replace(/"/g, '""') + '"';
 }
 
@@ -61,18 +62,26 @@ export default function OrganizerDashboard() {
       return;
     }
 
-    const { data, error } = await supabase
-      .from("participants")
-      .select("id,created_at,full_name,email,age,gender,participating_for_time,branch,unit,emergency_contact_name,emergency_contact_relationship,emergency_contact_phone")
-      .order("created_at", { ascending: false });
+    const pageSize = 500;
+    const allParticipants: Participant[] = [];
+    for (let from = 0; ; from += pageSize) {
+      const { data, error } = await supabase
+        .from("participants")
+        .select("id,created_at,full_name,email,age,gender,participating_for_time,branch,unit,emergency_contact_name,emergency_contact_relationship,emergency_contact_phone")
+        .order("created_at", { ascending: false })
+        .range(from, from + pageSize - 1);
 
-    if (error) {
-      setViewState("error");
-      setMessage("We could not load registrations. Check the organizer database permissions and try again.");
-      return;
+      if (error) {
+        setViewState("error");
+        setMessage("We could not load registrations. Check the organizer database permissions and try again.");
+        return;
+      }
+
+      allParticipants.push(...((data ?? []) as Participant[]));
+      if (!data || data.length < pageSize) break;
     }
 
-    setParticipants((data ?? []) as Participant[]);
+    setParticipants(allParticipants);
     setViewState("ready");
     setMessage("");
   }, [router]);
