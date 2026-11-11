@@ -160,6 +160,7 @@ export default function Home() {
             <p className="eyebrow">Prepare with purpose</p>
             <h2 id="preparation-title">Training &amp; preparation</h2>
             <p className="section-intro">A practical overview drawn from the uploaded <em>Norwegian Foot March Training and Preparation Guide</em>. Use it as general preparation material, not as a substitute for individualized medical or coaching advice.</p>
+            <a className="btn btn-primary training-download" href="/norwegian-foot-march-training-guide.pdf" download>Download training packet <span aria-hidden="true">↓</span></a>
           </div>
           <div className="prep-grid">
             {trainingTopics.map((item, index) => <article className="prep-card" key={item.title}><span className="detail-number">0{index + 1}</span><h3>{item.title}</h3><p>{item.text}</p></article>)}
