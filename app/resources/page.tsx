@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Navbar from "../components/Navbar";
 
 const questions = [
@@ -109,11 +110,11 @@ export default function ResourcesPage() {
             </div>
           </section>
 
-          <a className="resource-backlink" href="/">← Return to event home</a>
+          <Link className="resource-backlink" href="/">← Return to event home</Link>
         </div>
       </main>
       <footer className="site-footer">
-        <div className="footer-main"><div className="footer-brand"><span className="footer-unit">416th</span><div><p className="footer-title">Norwegian Foot March</p><p className="footer-subtitle">Oceanside, California · 23 January 2027</p></div></div><div className="footer-links"><a href="/">Event home</a><a href="/#event-info">Event information</a><a href="/#preparation">Preparation</a><a href="/#updates">Updates</a></div></div>
+        <div className="footer-main"><div className="footer-brand"><span className="footer-unit">416th</span><div><p className="footer-title">Norwegian Foot March</p><p className="footer-subtitle">Oceanside, California · 23 January 2027</p></div></div><div className="footer-links"><Link href="/">Event home</Link><Link href="/#event-info">Event information</Link><Link href="/#preparation">Preparation</Link><Link href="/#updates">Updates</Link></div></div>
         <div className="footer-bottom"><span>416th Civil Affairs Battalion</span><span>Official event information · Details subject to confirmation</span></div>
       </footer>
     </>
