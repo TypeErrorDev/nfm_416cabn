@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 
@@ -10,6 +11,7 @@ const branches = ["Army", "Navy", "Air Force", "Marine Corps", "Space Force", "C
 export default function RegistrationForm() {
   const [status, setStatus] = useState<RegistrationStatus>("idle");
   const [message, setMessage] = useState("");
+  const [confirmedName, setConfirmedName] = useState("");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -45,14 +47,40 @@ export default function RegistrationForm() {
       const { error } = await supabase.from("participants").insert(payload);
       if (error) throw error;
 
+      setConfirmedName(payload.full_name);
       form.reset();
       setStatus("success");
-      setMessage("Your registration was submitted. Check the event website for additional participant instructions.");
+      setMessage("");
     } catch (error) {
       console.error("Registration submission failed:", error);
       setStatus("error");
       setMessage("We could not submit your registration. Please check your connection and try again. If the problem continues, contact the event organizers.");
     }
+  }
+
+  if (status === "success") {
+    return (
+      <section className="registration-confirmation" aria-labelledby="registration-confirmation-title" aria-live="polite">
+        <div className="confirmation-mark" aria-hidden="true">✓</div>
+        <p className="eyebrow">416th Civil Affairs Battalion · Participant Registration</p>
+        <h2 id="registration-confirmation-title">Registration Confirmed</h2>
+        <p className="confirmation-greeting">{confirmedName ? `Thank you, ${confirmedName}.` : "Thank you for registering."}</p>
+        <p className="confirmation-message">Your registration has been successfully submitted and recorded for the Norwegian Foot March.</p>
+        <div className="confirmation-event-details">
+          <div><span>EVENT DATE</span><strong>January 23, 2027</strong></div>
+          <div><span>LOCATION</span><strong>Oceanside, California</strong></div>
+          <div><span>HOST</span><strong>416th Civil Affairs Battalion</strong></div>
+        </div>
+        <div className="confirmation-next-steps">
+          <strong>What happens next?</strong>
+          <p>Continue checking the event website for the confirmed schedule, route, participant standards, and final instructions. This screen confirms receipt of your registration; it is not a completion certificate.</p>
+        </div>
+        <div className="confirmation-actions">
+          <Link className="btn btn-primary" href="/">Return to event home</Link>
+          <button className="btn btn-ghost" type="button" onClick={() => { setStatus("idle"); setConfirmedName(""); }}>Register another participant</button>
+        </div>
+      </section>
+    );
   }
 
   return (
