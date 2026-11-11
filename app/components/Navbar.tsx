@@ -1,18 +1,30 @@
-function Navbar() {
-    return (
-        <nav className="outline-1 outline-blue-400 h-15 p-8 flex items-center justify-around w-full">
-            <div className="container mx-auto flex items-center font-cap">
-                <div className="text-ink font-bold text-xl mr-5">Norwegian Foot March </div>
-                <div className="text-[15px] text-brass-dim">Oceanside, California</div>
+const navigationItems = [
+  { label: "History", href: "#history" },
+  { label: "Event info", href: "#event-info" },
+  { label: "Updates", href: "#updates" },
+];
 
-            </div>
-            <div className="space-x-4">
-                <a href="#" className="text-gray-300 hover:text-white">Home</a>
-                <a href="#" className="text-gray-300 hover:text-white">About</a>
-                <a href="#" className="text-gray-300 hover:text-white">Contact</a>
-            </div>
-        </nav>
-    );
+export default function Navbar() {
+  return (
+    <header className="site-header">
+      <nav className="site-nav" aria-label="Main navigation">
+        <a className="brand-lockup" href="#main-content" aria-label="Norwegian Foot March home">
+          <span className="brand-mark" aria-hidden="true">416</span>
+          <span className="brand-copy">
+            <span className="brand-name">Norwegian Foot March</span>
+            <span className="brand-location">Oceanside · California</span>
+          </span>
+        </a>
+
+        <div className="nav-links">
+          {navigationItems.map((item) => (
+            <a key={item.href} href={item.href}>
+              {item.label}
+            </a>
+          ))}
+          <a className="nav-cta" href="#updates">Registration updates</a>
+        </div>
+      </nav>
+    </header>
+  );
 }
-
-export default Navbar;
