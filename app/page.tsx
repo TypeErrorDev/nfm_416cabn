@@ -1,4 +1,5 @@
 import Navbar from "./components/Navbar";
+import StandardsSelector from "./components/StandardsSelector";
 
 const eventFacts = [
   { label: "Date", value: "23 January 2027" },
@@ -143,7 +144,11 @@ export default function Home() {
 
           <div className="info-block">
             <div className="info-block-heading"><div><p className="eyebrow">Participant guidance</p><h3>Standards &amp; requirements</h3></div><span className="placeholder-tag">Confirmation pending</span></div>
-            <div className="detail-grid">
+            <div className="standards-selector-intro">
+              <p>Select an age group and standard category to preview the requirements that will apply. Official event-specific values are pending organizer confirmation.</p>
+            </div>
+            <StandardsSelector />
+            <div className="detail-grid standards-detail-grid">
               {standards.map((item, index) => <article className="detail-card" key={item.title}><span className="detail-number">0{index + 1}</span><h3>{item.title}</h3><p>{item.text}</p><span className="detail-status">Official guidance forthcoming</span></article>)}
             </div>
           </div>
