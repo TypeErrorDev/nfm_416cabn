@@ -2,7 +2,7 @@ const navigationItems = [
   { label: "History", href: "#history" },
   { label: "Event info", href: "#event-info" },
   { label: "Preparation", href: "#preparation" },
-  { label: "Resources", href: "/resources" },
+  { label: "Resources", href: "/resources" },\n  { label: "FAQ", href: "/#faq" },
   { label: "Updates", href: "#updates" },
 ];
 
@@ -16,7 +16,7 @@ export default function Navbar() {
         </a>
         <div className="nav-links">
           {navigationItems.map((item) => <a key={item.href} href={item.href}>{item.label}</a>)}
-          <a className="nav-cta" href="#updates">Registration updates</a>
+          <a className="nav-cta" href="/register">Register now</a>
         </div>
       </nav>
     </header>
