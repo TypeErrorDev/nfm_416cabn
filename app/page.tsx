@@ -166,7 +166,7 @@ export default function Home() {
           </div>
           <div className="prep-callout">
             <div><p className="eyebrow">Important</p><h3>Train progressively and listen to your body.</h3></div>
-            <p>The source guide discusses endurance, equipment, hydration, fueling, and recovery. It does not establish this event's official course, schedule, participant standards, or medical protocol. Those details will be published separately once approved.</p>
+            <p>The source guide discusses endurance, equipment, hydration, fueling, and recovery. It does not establish this event&apos;s official course, schedule, participant standards, or medical protocol. Those details will be published separately once approved.</p>
           </div>
           <p className="source-note">Source: Norwegian Foot March Training and Preparation Guide, provided for this event planning project (10 pages).</p>
         </section>
