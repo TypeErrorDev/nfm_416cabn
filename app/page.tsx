@@ -1,5 +1,6 @@
 import Navbar from "./components/Navbar";
 import StandardsSelector from "./components/StandardsSelector";
+import ParticipantCount from "./components/ParticipantCount";
 
 const eventFacts = [
   { label: "Date", value: "23 January 2027" },
@@ -82,6 +83,8 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <ParticipantCount />
 
         <section className="fact-strip" aria-label="Event at a glance">
           {eventFacts.slice(0, 3).map((fact, index) => (
