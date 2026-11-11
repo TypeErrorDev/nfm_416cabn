@@ -29,7 +29,7 @@ export default function ParticipantCount() {
           setState("ready");
         }
       } catch {
-        if (active && count === null) setState("error");
+        if (active) setState("error");
       }
     }
 
