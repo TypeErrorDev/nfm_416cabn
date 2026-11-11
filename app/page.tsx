@@ -177,6 +177,29 @@ export default function Home() {
           <div className="updates-heading"><div><p className="eyebrow">From the organizers</p><h2 id="updates-title">Event updates</h2></div><p>Announcements and participant guidance will be published here as they become available.</p></div>
           <article className="update-card"><div className="update-meta"><span>416th Civil Affairs Battalion</span><span>Event notice</span></div><h3>Norwegian Foot March · Oceanside</h3><p>The event website is being prepared. Check back for confirmed details and the official participant information packet.</p></article>
         </section>
+
+        <section id="faq" className="content-section faq-section" aria-labelledby="faq-title">
+          <div className="section-heading">
+            <p className="eyebrow">Participant information</p>
+            <h2 id="faq-title">Frequently asked questions</h2>
+            <p className="section-intro">Quick answers and direct links to the information participants need most.</p>
+          </div>
+          <div className="homepage-faq">
+            <details><summary>How do I register?</summary><p>Registration is open. Use the <a href="/register">Norwegian Foot March registration page</a> to access the form. This is the permanent registration address; the form will be placed here when it is ready.</p></details>
+            <details><summary>Where can I find the route map?</summary><p>Visit <a href="#route-and-checkpoints">Route &amp; Checkpoints</a> in Event Information. The official map, distance, start and finish locations, and checkpoint details will be posted there once approved.</p></details>
+            <details><summary>Which completion time applies to me?</summary><p>Use the <a href="#standards">Standards &amp; Requirements</a> section. Select your age group and standard category in the dropdowns to display the time supplied for this event. Review the final participant instructions for any additional requirements.</p></details>
+            <details><summary>How should I prepare for the march?</summary><p>Review the <a href="#preparation">Norwegian Foot March Training and Preparation Packet</a>. It covers progressive endurance training, rucking, footwear and equipment preparation, hydration, fueling, and recovery. It is general preparation guidance, not a substitute for the official event instructions.</p></details>
+            <details><summary>Who can I contact with questions?</summary><p>Use the <a href="#contact">Organizer Contact</a> section below. The official point of contact and contact method will be added once provided by the organizers.</p></details>
+          </div>
+        </section>
+        <section id="contact" className="content-section contact-section" aria-labelledby="contact-title">
+          <div className="section-heading">
+            <p className="eyebrow">Need assistance?</p>
+            <h2 id="contact-title">Organizer contact</h2>
+            <p className="section-intro">Official contact details will be published here when confirmed by the event organizers.</p>
+          </div>
+          <div className="contact-placeholder"><h3>Contact information forthcoming</h3><p>The event point of contact and preferred method for participant questions will be listed here. No personal or unofficial contact details are displayed.</p></div>
+        </section>
       </main>
       <footer className="site-footer">
         <div className="footer-main"><div className="footer-brand"><span className="footer-unit">416th</span><div><p className="footer-title">Norwegian Foot March</p><p className="footer-subtitle">Oceanside, California · 23 January 2027</p></div></div><div className="footer-links"><a href="#history">History</a><a href="#event-info">Event information</a><a href="#preparation">Preparation</a><a href="#updates">Updates</a><a href="#faq">FAQ</a><a href="#contact">Contact</a><a href="#main-content">Back to top ↑</a></div></div>
