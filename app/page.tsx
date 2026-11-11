@@ -143,7 +143,7 @@ export default function Home() {
             </dl>
           </div>
 
-          <div className="info-block">
+          <div id="standards" className="info-block">
             <div className="info-block-heading"><div><p className="eyebrow">Participant guidance</p><h3>Standards &amp; requirements</h3></div><span className="placeholder-tag">Confirmation pending</span></div>
             <div className="standards-selector-intro">
               <p>Select an age group and standard category to preview the requirements that will apply. Official event-specific values are pending organizer confirmation.</p>
