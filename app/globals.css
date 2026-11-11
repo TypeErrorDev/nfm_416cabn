@@ -1570,3 +1570,75 @@ a:focus-visible {
   .confirmation-actions { width: 100%; flex-direction: column; }
   .confirmation-actions .btn { width: 100%; }
 }
+
+
+/* Live public registration total */
+.participant-count-section {
+  padding: 30px var(--spacing-gutter);
+  border-top: 1px solid var(--color-rule);
+  border-bottom: 1px solid var(--color-rule);
+  background: linear-gradient(105deg, #242A1C, #1B2119 62%, #20271C);
+}
+.participant-count-inner {
+  display: flex;
+  width: min(100%, 1060px);
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  margin: 0 auto;
+}
+.participant-count-value {
+  margin: 5px 0 0;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 6vw, 4.4rem);
+  font-weight: 700;
+  line-height: .95;
+  font-variant-numeric: tabular-nums;
+}
+.participant-count-inner h2 {
+  margin: 8px 0 0;
+  color: var(--color-brass);
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.participant-count-caption {
+  max-width: 620px;
+  margin: 8px 0 0;
+  color: var(--color-ink-dim);
+  font-size: .86rem;
+}
+.participant-count-status {
+  display: grid;
+  grid-template-columns: 9px auto;
+  align-items: center;
+  gap: 5px 9px;
+  flex: 0 0 auto;
+  color: var(--color-brass);
+  font-family: var(--font-mono);
+  font-size: .58rem;
+  letter-spacing: .12em;
+}
+.participant-count-dot {
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--color-brass-dim);
+  border-radius: 50%;
+}
+.participant-count-dot.is-live {
+  border-color: #91A66A;
+  background: #91A66A;
+  box-shadow: 0 0 10px rgba(145,166,106,.5);
+}
+.participant-count-refresh {
+  grid-column: 1 / -1;
+  color: var(--color-ink-dim);
+  font-size: .52rem;
+  letter-spacing: .04em;
+}
+@media (max-width: 650px) {
+  .participant-count-inner { align-items: flex-start; flex-direction: column; gap: 18px; }
+  .participant-count-status { grid-template-columns: 9px auto; }
+}
