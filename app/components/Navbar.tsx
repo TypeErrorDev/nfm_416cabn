@@ -2,7 +2,8 @@ const navigationItems = [
   { label: "History", href: "#history" },
   { label: "Event info", href: "#event-info" },
   { label: "Preparation", href: "#preparation" },
-  { label: "Resources", href: "/resources" }, { label: "FAQ", href: "/#faq" },
+  { label: "Resources", href: "/resources" },
+  { label: "FAQ", href: "/#faq" },
   { label: "Updates", href: "#updates" },
 ];
 
