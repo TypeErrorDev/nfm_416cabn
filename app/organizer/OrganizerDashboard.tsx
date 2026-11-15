@@ -14,6 +14,7 @@ type Participant = {
   gender: "women" | "men";
   participating_for_time: boolean;
   ruck_time: string | null;
+  completion_status: "Registered" | "Checked In" | "Completed" | "Did Not Complete";
   branch: string;
   unit: string | null;
   emergency_contact_name: string;
@@ -69,7 +70,7 @@ export default function OrganizerDashboard() {
     for (let from = 0; ; from += pageSize) {
       const { data, error } = await supabase
         .from("participants")
-        .select("id,created_at,full_name,email,age,gender,participating_for_time,branch,unit,emergency_contact_name,emergency_contact_relationship,emergency_contact_phone")
+        .select("id,created_at,full_name,email,age,gender,participating_for_time,ruck_time,completion_status,branch,unit,emergency_contact_name,emergency_contact_relationship,emergency_contact_phone")
         .order("created_at", { ascending: false })
         .range(from, from + pageSize - 1);
 
@@ -140,6 +141,29 @@ export default function OrganizerDashboard() {
     setSavingTimeId(null);
   }
 
+  function updateCompletionStatus(participantId: string, value: Participant["completion_status"]) {
+    setParticipants((current) =>
+      current.map((item) => item.id === participantId ? { ...item, completion_status: value } : item)
+    );
+  }
+
+  async function saveCompletionStatus(participant: Participant) {
+    setSavingTimeId(participant.id);
+    setMessage("");
+    const supabase = getSupabaseBrowserClient();
+    const { error } = await supabase
+      .from("participants")
+      .update({ completion_status: participant.completion_status })
+      .eq("id", participant.id);
+
+    if (error) {
+      setMessage("The participant status could not be saved. Verify the Supabase completion_status column and organizer UPDATE policy.");
+    } else {
+      setMessage(`Status saved for ${participant.full_name}.`);
+    }
+    setSavingTimeId(null);
+  }
+
   async function handleDelete(participant: Participant) {
     const confirmed = window.confirm(`Remove the registration for ${participant.full_name}? This cannot be undone.`);
     if (!confirmed) return;
@@ -159,10 +183,10 @@ export default function OrganizerDashboard() {
   }
 
   function exportCsv() {
-    const headers = ["Registered at", "Full name", "Email", "Age", "Standard category", "Participating for time", "Ruck time (H:MM:SS)", "Branch", "Unit", "Emergency contact", "Relationship", "Emergency contact phone"];
+    const headers = ["Registered at", "Full name", "Email", "Age", "Standard category", "Participating for time", "Ruck time (H:MM:SS)", "Completion status", "Branch", "Unit", "Emergency contact", "Relationship", "Emergency contact phone"];
     const rows = filteredParticipants.map((item) => [
       item.created_at, item.full_name, item.email, item.age, item.gender,
-      item.participating_for_time ? "Yes" : "No", item.ruck_time ?? "", item.branch, item.unit,
+      item.participating_for_time ? "Yes" : "No", item.ruck_time ?? "", item.completion_status, item.branch, item.unit,
       item.emergency_contact_name, item.emergency_contact_relationship, item.emergency_contact_phone,
     ]);
     const csv = [headers, ...rows].map((row) => row.map(csvCell).join(",")).join("\r\n");
@@ -211,7 +235,7 @@ export default function OrganizerDashboard() {
           {message && <p className="registration-feedback" role="status">{message}</p>}
           <div className="organizer-table-scroll">
             <table className="organizer-table">
-              <thead><tr><th>Participant</th><th>Age</th><th>Category</th><th>Branch / unit</th><th>For time?</th><th>Ruck time</th><th>Registered</th>{showContacts && <th>Emergency contact</th>}<th><span className="sr-only">Actions</span></th></tr></thead>
+              <thead><tr><th>Participant</th><th>Age</th><th>Category</th><th>Branch / unit</th><th>For time?</th><th>Ruck time</th><th>Completion status</th><th>Registered</th>{showContacts && <th>Emergency contact</th>}<th><span className="sr-only">Actions</span></th></tr></thead>
               <tbody>
                 {filteredParticipants.map((item) => <tr key={item.id}>
                   <td><strong>{item.full_name}</strong><span>{item.email}</span></td>
@@ -239,11 +263,27 @@ export default function OrganizerDashboard() {
                       disabled={savingTimeId === item.id || (!!item.ruck_time?.trim() && !/^\d+:[0-5]\d:[0-5]\d$/.test(item.ruck_time.trim()))}
                     >{savingTimeId === item.id ? "Saving..." : "Save time"}</button>
                   </td>
+                  <td className="organizer-status-cell">
+                    <label className="sr-only" htmlFor={`status-${item.id}`}>Completion status for {item.full_name}</label>
+                    <select
+                      id={`status-${item.id}`}
+                      value={item.completion_status}
+                      onChange={(event) => updateCompletionStatus(item.id, event.target.value as Participant["completion_status"])}
+                    >
+                      <option value="Registered">Registered</option>
+                      <option value="Checked In">Checked In</option>
+                      <option value="Completed">Completed</option>
+                      <option value="Did Not Complete">Did Not Complete</option>
+                    </select>
+                    <button className="organizer-save-button" type="button" onClick={() => void saveCompletionStatus(item)} disabled={savingTimeId === item.id}>
+                      {savingTimeId === item.id ? "Saving..." : "Save status"}
+                    </button>
+                  </td>
                   <td>{new Date(item.created_at).toLocaleDateString()}</td>
                   {showContacts && <td>{item.emergency_contact_name}<span>{item.emergency_contact_relationship} · {item.emergency_contact_phone}</span></td>}
                   <td><button className="organizer-delete-button" onClick={() => void handleDelete(item)} disabled={busyId === item.id}>{busyId === item.id ? "Removing..." : "Remove"}</button></td>
                 </tr>)}
-                {filteredParticipants.length === 0 && <tr><td colSpan={showContacts ? 9 : 8} className="organizer-empty">No registrations match this search.</td></tr>}
+                {filteredParticipants.length === 0 && <tr><td colSpan={showContacts ? 10 : 9} className="organizer-empty">No registrations match this search.</td></tr>}
               </tbody>
             </table>
           </div>
