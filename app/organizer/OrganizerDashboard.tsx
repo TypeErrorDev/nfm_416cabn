@@ -116,7 +116,7 @@ export default function OrganizerDashboard() {
 
   async function saveRuckTime(participant: Participant) {
     const value = (participant.ruck_time ?? "").trim();
-    if (value && !/^\\d+:[0-5]\\d:[0-5]\\d$/.test(value)) {
+    if (value && !/^\d+:[0-5]\d:[0-5]\d$/.test(value)) {
       setMessage("Enter the ruck time as H:MM:SS, for example 4:32:18.");
       return;
     }
@@ -236,7 +236,7 @@ export default function OrganizerDashboard() {
                       className="organizer-save-button"
                       type="button"
                       onClick={() => void saveRuckTime(item)}
-                      disabled={savingTimeId === item.id || (!!item.ruck_time?.trim() && !/^\\d+:[0-5]\\d:[0-5]\\d$/.test(item.ruck_time.trim()))}
+                      disabled={savingTimeId === item.id || (!!item.ruck_time?.trim() && !/^\d+:[0-5]\d:[0-5]\d$/.test(item.ruck_time.trim()))}
                     >{savingTimeId === item.id ? "Saving..." : "Save time"}</button>
                   </td>
                   <td>{new Date(item.created_at).toLocaleDateString()}</td>
