@@ -13,6 +13,7 @@ type Participant = {
   age: number;
   gender: "women" | "men";
   participating_for_time: boolean;
+  ruck_time: string | null;
   branch: string;
   unit: string | null;
   emergency_contact_name: string;
@@ -35,6 +36,7 @@ export default function OrganizerDashboard() {
   const [query, setQuery] = useState("");
   const [message, setMessage] = useState("");
   const [busyId, setBusyId] = useState<string | null>(null);
+  const [savingTimeId, setSavingTimeId] = useState<string | null>(null);
   const [showContacts, setShowContacts] = useState(false);
 
   const loadParticipants = useCallback(async () => {
@@ -106,6 +108,38 @@ export default function OrganizerDashboard() {
     router.refresh();
   }
 
+  function updateRuckTime(participantId: string, value: string) {
+    setParticipants((current) =>
+      current.map((item) => item.id === participantId ? { ...item, ruck_time: value } : item)
+    );
+  }
+
+  async function saveRuckTime(participant: Participant) {
+    const value = (participant.ruck_time ?? "").trim();
+    if (value && !/^\\d+:[0-5]\\d:[0-5]\\d$/.test(value)) {
+      setMessage("Enter the ruck time as H:MM:SS, for example 4:32:18.");
+      return;
+    }
+
+    setSavingTimeId(participant.id);
+    setMessage("");
+    const supabase = getSupabaseBrowserClient();
+    const { error } = await supabase
+      .from("participants")
+      .update({ ruck_time: value || null })
+      .eq("id", participant.id);
+
+    if (error) {
+      setMessage("The ruck time could not be saved. Verify the Supabase ruck_time column and organizer UPDATE policy.");
+    } else {
+      setParticipants((current) =>
+        current.map((item) => item.id === participant.id ? { ...item, ruck_time: value || null } : item)
+      );
+      setMessage(`Ruck time saved for ${participant.full_name}.`);
+    }
+    setSavingTimeId(null);
+  }
+
   async function handleDelete(participant: Participant) {
     const confirmed = window.confirm(`Remove the registration for ${participant.full_name}? This cannot be undone.`);
     if (!confirmed) return;
@@ -125,10 +159,10 @@ export default function OrganizerDashboard() {
   }
 
   function exportCsv() {
-    const headers = ["Registered at", "Full name", "Email", "Age", "Standard category", "Participating for time", "Branch", "Unit", "Emergency contact", "Relationship", "Emergency contact phone"];
+    const headers = ["Registered at", "Full name", "Email", "Age", "Standard category", "Participating for time", "Ruck time (H:MM:SS)", "Branch", "Unit", "Emergency contact", "Relationship", "Emergency contact phone"];
     const rows = filteredParticipants.map((item) => [
       item.created_at, item.full_name, item.email, item.age, item.gender,
-      item.participating_for_time ? "Yes" : "No", item.branch, item.unit,
+      item.participating_for_time ? "Yes" : "No", item.ruck_time ?? "", item.branch, item.unit,
       item.emergency_contact_name, item.emergency_contact_relationship, item.emergency_contact_phone,
     ]);
     const csv = [headers, ...rows].map((row) => row.map(csvCell).join(",")).join("\r\n");
@@ -177,7 +211,7 @@ export default function OrganizerDashboard() {
           {message && <p className="registration-feedback" role="status">{message}</p>}
           <div className="organizer-table-scroll">
             <table className="organizer-table">
-              <thead><tr><th>Participant</th><th>Age</th><th>Category</th><th>Branch / unit</th><th>For time?</th><th>Registered</th>{showContacts && <th>Emergency contact</th>}<th><span className="sr-only">Actions</span></th></tr></thead>
+              <thead><tr><th>Participant</th><th>Age</th><th>Category</th><th>Branch / unit</th><th>For time?</th><th>Ruck time</th><th>Registered</th>{showContacts && <th>Emergency contact</th>}<th><span className="sr-only">Actions</span></th></tr></thead>
               <tbody>
                 {filteredParticipants.map((item) => <tr key={item.id}>
                   <td><strong>{item.full_name}</strong><span>{item.email}</span></td>
@@ -185,11 +219,31 @@ export default function OrganizerDashboard() {
                   <td>{item.gender === "women" ? "Women's" : "Men's"}</td>
                   <td>{item.branch}<span>{item.unit || "—"}</span></td>
                   <td>{item.participating_for_time ? "Yes" : "No"}</td>
+                  <td className="organizer-ruck-time-cell">
+                    <label className="sr-only" htmlFor={`ruck-time-${item.id}`}>Ruck time for {item.full_name} (hours:minutes:seconds)</label>
+                    <input
+                      id={`ruck-time-${item.id}`}
+                      type="text"
+                      inputMode="numeric"
+                      autoComplete="off"
+                      placeholder="H:MM:SS"
+                      value={item.ruck_time ?? ""}
+                      onChange={(event) => updateRuckTime(item.id, event.target.value)}
+                      aria-describedby={`ruck-time-help-${item.id}`}
+                    />
+                    <span id={`ruck-time-help-${item.id}`}>Example: 4:32:18</span>
+                    <button
+                      className="organizer-save-button"
+                      type="button"
+                      onClick={() => void saveRuckTime(item)}
+                      disabled={savingTimeId === item.id || (!!item.ruck_time?.trim() && !/^\\d+:[0-5]\\d:[0-5]\\d$/.test(item.ruck_time.trim()))}
+                    >{savingTimeId === item.id ? "Saving..." : "Save time"}</button>
+                  </td>
                   <td>{new Date(item.created_at).toLocaleDateString()}</td>
                   {showContacts && <td>{item.emergency_contact_name}<span>{item.emergency_contact_relationship} · {item.emergency_contact_phone}</span></td>}
                   <td><button className="organizer-delete-button" onClick={() => void handleDelete(item)} disabled={busyId === item.id}>{busyId === item.id ? "Removing..." : "Remove"}</button></td>
                 </tr>)}
-                {filteredParticipants.length === 0 && <tr><td colSpan={showContacts ? 8 : 7} className="organizer-empty">No registrations match this search.</td></tr>}
+                {filteredParticipants.length === 0 && <tr><td colSpan={showContacts ? 9 : 8} className="organizer-empty">No registrations match this search.</td></tr>}
               </tbody>
             </table>
           </div>
