@@ -247,11 +247,9 @@ export default function OrganizerDashboard() {
         </header>
 
         <section className="organizer-summary" aria-label="Registration summary">
-          <div><span>Active participants</span><strong>{participants.filter((item) => item.registration_status === "Active").length.toLocaleString("en-US")}</strong></div>\n          <div><span>Withdrawn participants</span><strong>{participants.filter((item) => item.registration_status === "Withdrawn").length.toLocaleString("en-US")}</strong></div>\n          <div><span>Volunteers</span><strong>{volunteers.length.toLocaleString("en-US")}</strong></div>
+          <div><span>Active participants</span><strong>{participants.filter((item) => item.registration_status === "Active").length.toLocaleString("en-US")}</strong></div>
           <div><span>Withdrawn participants</span><strong>{participants.filter((item) => item.registration_status === "Withdrawn").length.toLocaleString("en-US")}</strong></div>
           <div><span>Volunteers</span><strong>{volunteers.length.toLocaleString("en-US")}</strong></div>
-          <div><span>Participating for time</span><strong>{participants.filter((item) => item.participating_for_time).length.toLocaleString("en-US")}</strong></div>
-          <div><span>Not participating for time</span><strong>{participants.filter((item) => !item.participating_for_time).length.toLocaleString("en-US")}</strong></div>
         </section>
 
         <section className="organizer-table-panel">
