@@ -1833,3 +1833,8 @@ a:focus-visible {
 }
 
 .registration-honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+
+
+/* Participant registration self-service */
+.registration-management-code { overflow-wrap: anywhere; font-family: var(--font-mono); letter-spacing: .08em; }
+.registration-confirmation .confirmation-next-steps .btn { margin-top: 10px; }
