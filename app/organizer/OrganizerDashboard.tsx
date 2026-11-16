@@ -320,7 +320,24 @@ export default function OrganizerDashboard() {
               </tbody>
             </table>
           </div>
-          <p className="organizer-sensitive-note">Participant and emergency contact information is sensitive. Download and share CSV exports only with authorized event personnel.</p>
+          <p className="organizer-sensitive-note">Participant and emergency contact information is sensitive. Download and share CSV exports only with authorized event personnel. Withdrawn records are retained for event administration.</p>
+        </section>
+        <section className="organizer-table-panel" style={{ marginTop: 24 }}>
+          <div className="organizer-table-heading"><div><p className="eyebrow">Volunteer records</p><h2>Volunteer assignments</h2><p>{volunteers.length} volunteers registered</p></div>
+            <button className="btn btn-primary" onClick={() => {
+              const headers = ["Registered at", "Full name", "Email", "Assignment", "Emergency contact", "Relationship", "Emergency contact phone"];
+              const rows = volunteers.map((v) => [v.created_at, v.full_name, v.email, v.assignment, v.emergency_contact_name, v.emergency_contact_relationship, v.emergency_contact_phone]);
+              const csv = [headers, ...rows].map((row) => row.map(csvCell).join(",")).join("\r\n");
+              const blob = new Blob(["\uFEFF", csv], { type: "text/csv;charset=utf-8;" });
+              const url = URL.createObjectURL(blob); const anchor = document.createElement("a"); anchor.href = url; anchor.download = "norwegian-foot-march-volunteers.csv"; anchor.click(); URL.revokeObjectURL(url);
+            }} disabled={volunteers.length === 0}>Export volunteer CSV</button>
+          </div>
+          <div className="organizer-summary">{["Water / First Aid Station 1", "Water / First Aid Station 2", "Water / First Aid Station 3", "Start / Registration", "Turnaround", "Finish Line"].map((assignment) => <div key={assignment}><span>{assignment}</span><strong>{volunteers.filter((v) => v.assignment === assignment).length}</strong></div>)}</div>
+          <div className="organizer-table-scroll"><table className="organizer-table"><thead><tr><th>Volunteer</th><th>Assignment</th><th>Registered</th>{showContacts && <th>Emergency contact</th>}</tr></thead><tbody>
+            {volunteers.map((v) => <tr key={v.id}><td><strong>{v.full_name}</strong><span>{v.email}</span></td><td>{v.assignment}</td><td>{new Date(v.created_at).toLocaleDateString()}</td>{showContacts && <td>{v.emergency_contact_name}<span>{v.emergency_contact_relationship} · {v.emergency_contact_phone}</span></td>}</tr>)}
+            {volunteers.length === 0 && <tr><td colSpan={showContacts ? 4 : 3} className="organizer-empty">No volunteers have registered yet.</td></tr>}
+          </tbody></table></div>
+          <p className="organizer-sensitive-note">Volunteer and emergency contact information is sensitive. Share only with authorized event personnel.</p>
         </section>
       </div>
     </main>
