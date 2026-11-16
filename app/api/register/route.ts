@@ -44,12 +44,13 @@ function validatePayload(value: unknown): RegistrationPayload | null {
   const emergency_contact_name = cleanText(body.emergency_contact_name, 160);
   const emergency_contact_relationship = cleanText(body.emergency_contact_relationship, 80);
   const emergency_contact_phone = cleanText(body.emergency_contact_phone, 30);
-  const unitValue = body.unit === null || body.unit === "" ? null : cleanText(body.unit, 160);
+  const unitValue = typeof body.unit === "string" && body.unit.trim() ? cleanText(body.unit, 160) : null;
 
   if (
     !full_name ||
     !email ||
     !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
+    typeof body.age !== "number" ||
     !Number.isInteger(body.age) ||
     Number(body.age) < 1 ||
     Number(body.age) > 120 ||
@@ -63,7 +64,6 @@ function validatePayload(value: unknown): RegistrationPayload | null {
     !/^[+\d().\s-]{7,30}$/.test(emergency_contact_phone) ||
     emergency_contact_phone.replace(/\D/g, "").length < 7 ||
     (body.branch !== "CIV" && !unitValue) ||
-    (body.branch === "CIV" && body.unit !== null && body.unit !== "" && !unitValue)
   ) {
     return null;
   }
