@@ -68,14 +68,14 @@ export default function RegistrationForm() {
     return (
       <section className="registration-confirmation" aria-labelledby="registration-confirmation-title" aria-live="polite">
         <div className="confirmation-mark" aria-hidden="true">✓</div>
-        <p className="eyebrow">416th Civil Affairs Battalion · Participant Registration</p>
+        <p className="eyebrow">Ares Company · Participant Registration</p>
         <h2 id="registration-confirmation-title">Registration Confirmed</h2>
         <p className="confirmation-greeting">{confirmedName ? `Thank you, ${confirmedName}.` : "Thank you for registering."}</p>
         <p className="confirmation-message">Your registration has been successfully submitted and recorded for the Norwegian Foot March.</p>
         <div className="confirmation-event-details">
           <div><span>EVENT DATE</span><strong>January 23, 2027</strong></div>
           <div><span>LOCATION</span><strong>Oceanside, California</strong></div>
-          <div><span>HOST</span><strong>416th Civil Affairs Battalion</strong></div>
+          <div><span>HOST</span><strong>Ares Company</strong></div>
         </div>
         <div className="confirmation-next-steps">
           <strong>What happens next?</strong>
