@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
-import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 
 type RegistrationStatus = "idle" | "submitting" | "success" | "error";
 
@@ -34,6 +33,7 @@ export default function RegistrationForm() {
       emergency_contact_name: String(data.get("emergency_contact_name") ?? "").trim(),
       emergency_contact_relationship: String(data.get("emergency_contact_relationship") ?? "").trim(),
       emergency_contact_phone: String(data.get("emergency_contact_phone") ?? "").trim(),
+      website: String(data.get("website") ?? ""),
     };
 
     if (branch !== "CIV" && !unit) {
@@ -43,9 +43,15 @@ export default function RegistrationForm() {
     }
 
     try {
-      const supabase = getSupabaseBrowserClient();
-      const { error } = await supabase.from("participants").insert(payload);
-      if (error) throw error;
+      const response = await fetch("/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const result = await response.json().catch(() => null);
+      if (!response.ok) {
+        throw new Error(typeof result?.error === "string" ? result.error : "Registration could not be submitted.");
+      }
 
       setConfirmedName(payload.full_name);
       form.reset();
@@ -54,7 +60,7 @@ export default function RegistrationForm() {
     } catch (error) {
       console.error("Registration submission failed:", error);
       setStatus("error");
-      setMessage("We could not submit your registration. Please check your connection and try again. If the problem continues, contact the event organizers.");
+      setMessage(error instanceof Error ? error.message : "We could not submit your registration. Please check your connection and try again. If the problem continues, contact the event organizers.");
     }
   }
 
@@ -85,6 +91,11 @@ export default function RegistrationForm() {
 
   return (
     <form className="registration-form" onSubmit={handleSubmit}>
+      <div className="registration-honeypot" aria-hidden="true">
+        <label htmlFor="website">Leave this field blank</label>
+        <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+      </div>
+
       <div className="registration-form-intro">
         <p>Complete each required field to submit your participant information.</p>
         <p className="registration-required-note">Fields marked with * are required.</p>
