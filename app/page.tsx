@@ -1,31 +1,34 @@
 import Navbar from "./components/Navbar";
 import StandardsSelector from "./components/StandardsSelector";
+import ParticipantCount from "./components/ParticipantCount";
+import Image from "next/image";
 
 const eventFacts = [
   { label: "Date", value: "23 January 2027" },
   { label: "Location", value: "Oceanside, California" },
-  { label: "Host unit", value: "416th Civil Affairs Battalion" },
+  { label: "Host unit", value: "Ares Company" },
   { label: "Registration", value: "Open" },
 ];
 
 const scheduleItems = [
-  { time: "TIME TBD", title: "Participant check-in", description: "Check-in location and reporting instructions will be published when confirmed." },
-  { time: "TIME TBD", title: "Formation and briefing", description: "Event-day safety brief and participant instructions." },
-  { time: "TIME TBD", title: "March start", description: "Start time, release procedure, and any waves will be announced." },
-  { time: "TIME TBD", title: "Finish and accountability", description: "Finish-line procedures and participant accountability details will be provided." },
+  { time: "4:00–4:30 AM", title: "Participant check-in and first ruck weigh-in", description: "Report to O'Side Rock Garden for registration/accountability and the initial 25 lb dry-weight rucksack inspection. After check-in, proceed to the San Luis Rey River Bike Trail western entrance for the start." },
+  { time: "4:45 AM", title: "Opening formation and safety briefing", description: "Participants receive the event-day briefing and final instructions." },
+  { time: "5:30 AM", title: "Official march start", description: "The 30K (18.64-mile) march begins at the western entrance of the San Luis Rey River Bike Trail." },
+  { time: "11:30 AM", title: "Completion cutoff", description: "Six hours after the official start. Participants must report to the finish-line table and complete the finish procedures by this time." },
 ];
 
 const routeItems = [
-  { label: "Route map", value: "To be published" },
-  { label: "March distance", value: "To be confirmed" },
-  { label: "Start / finish", value: "Location forthcoming" },
-  { label: "Water / aid stations", value: "Locations forthcoming" },
+  { label: "Route", value: "San Luis Rey Riverwalk Bike Path · out-and-back" },
+  { label: "March distance", value: "30K / 18.64 miles" },
+  { label: "Start", value: "San Luis Rey River Bike Trail western entrance" },
+  { label: "Finish", value: "O'Side Rock Garden · beachfront" },
+  { label: "Route support", value: "Three volunteer-staffed water/first-aid stations, serving both directions" },
 ];
 
 const standards = [
-  { title: "Eligibility", text: "Participant eligibility and any age, status, or registration requirements will be listed after organizer confirmation." },
-  { title: "Uniform and equipment", text: "The approved uniform, ruck configuration, dry-weight standard, and inspection process will be published in the event instructions." },
-  { title: "Completion criteria", text: "The official distance and completion verification process will be provided in the participant instructions." },
+  { title: "Uniform and footwear", text: "Military participants wear their service-specific military uniform and military-issued boots. Civilians wear comparable clothing and sturdy footwear suitable for the march." },
+  { title: "Rucksack and safety equipment", text: "Military participants use a military-issued rucksack; civilians may use a non-military-issued rucksack. All rucks must weigh at least 25 lb dry, excluding water, and are weighed before and after the march. A headlamp/light source and reflective belt worn around the rucksack are required." },
+  { title: "Personal sustainment", text: "Participants bring their own water, snacks/energy food, and personal first-aid supplies. Refill water and basic CLS supplies will be available at support stations; volunteer-provided snacks and bottled water are subject to availability." },
 ];
 
 const trainingTopics = [
@@ -44,7 +47,7 @@ export default function Home() {
         <section className="hero-section" aria-labelledby="hero-title">
           <div className="hero-inner">
             <div className="hero-copy">
-              <p className="eyebrow">416th Civil Affairs Battalion · Oceanside, California</p>
+              <p className="eyebrow">Ares Company · Oceanside, California</p>
               <p className="hero-kicker">Norsk Fotmarsj</p>
               <h1 id="hero-title" className="hero-title">Norwegian<br />Foot March</h1>
               <p className="hero-description">
@@ -83,6 +86,8 @@ export default function Home() {
           </div>
         </section>
 
+        <ParticipantCount />
+
         <section className="fact-strip" aria-label="Event at a glance">
           {eventFacts.slice(0, 3).map((fact, index) => (
             <div className="fact-tile" key={fact.label}>
@@ -120,7 +125,7 @@ export default function Home() {
           </div>
 
           <div className="info-block">
-            <div className="info-block-heading"><div><p className="eyebrow">Event day</p><h3>Schedule &amp; timeline</h3></div><span className="placeholder-tag">Draft · Times TBD</span></div>
+            <div className="info-block-heading"><div><p className="eyebrow">Event day</p><h3>Schedule &amp; timeline</h3></div><span className="placeholder-tag">Event schedule</span></div>
             <ol className="timeline-list">
               {scheduleItems.map((item, index) => (
                 <li className="timeline-item" key={item.title}>
@@ -133,10 +138,27 @@ export default function Home() {
           </div>
 
           <div id="route-and-checkpoints" className="info-block route-block">
-            <div className="info-block-heading"><div><p className="eyebrow">Course details</p><h3>Route &amp; checkpoints</h3></div><span className="placeholder-tag">Route pending</span></div>
-            <div className="route-placeholder" role="note" aria-label="Route map placeholder">
-              <div className="route-placeholder-lines" aria-hidden="true"><span /><span /><span /></div>
-              <div className="route-placeholder-content"><span className="route-pin" aria-hidden="true">+</span><strong>Official route map</strong><span>Map and checkpoint details will be added after organizer approval.</span></div>
+            <div className="info-block-heading"><div><p className="eyebrow">Course details</p><h3>Route &amp; checkpoints</h3></div><span className="placeholder-tag">CONOP route</span></div>
+            <div className="route-gallery" aria-label="Route maps">
+              <figure className="route-gallery-overview">
+                <Image src="/route-overview.jpg" alt="Overall route map for the Norwegian Foot March along the San Luis Rey Riverwalk Bike Path" width={1600} height={1000} priority />
+                <figcaption><strong>Full route overview</strong><span>30K out-and-back course · San Luis Rey Riverwalk Bike Path</span></figcaption>
+              </figure>
+              <div className="route-gallery-details">
+                <figure>
+                  <Image src="/route-start-area.jpg" alt="Detailed route map view showing one section of the Norwegian Foot March course" width={1200} height={900} />
+                  <figcaption><strong>Route detail 1</strong><span>Course detail from the event route map</span></figcaption>
+                </figure>
+                <figure>
+                  <Image src="/route-inland-turnaround.jpg" alt="Detailed route map view showing another section of the Norwegian Foot March course" width={1200} height={900} />
+                  <figcaption><strong>Route detail 2</strong><span>Course detail from the event route map</span></figcaption>
+                </figure>
+                <figure>
+                  <Image src="/route-finish-area.jpg" alt="Detailed route map view showing a further section of the Norwegian Foot March course" width={1200} height={900} />
+                  <figcaption><strong>Route detail 3</strong><span>Course detail from the event route map</span></figcaption>
+                </figure>
+              </div>
+              <p className="route-gallery-note">Use the event-day instructions and volunteer direction at checkpoints. Map images are provided as visual references and do not replace the safety briefing.</p>
             </div>
             <dl className="route-facts">
               {routeItems.map((item) => <div key={item.label}><dt>{item.label}</dt><dd>{item.value}</dd></div>)}
@@ -144,16 +166,26 @@ export default function Home() {
           </div>
 
           <div id="standards" className="info-block">
-            <div className="info-block-heading"><div><p className="eyebrow">Participant guidance</p><h3>Standards &amp; requirements</h3></div><span className="placeholder-tag">Confirmation pending</span></div>
+            <div className="info-block-heading"><div><p className="eyebrow">Participant guidance</p><h3>Standards &amp; requirements</h3></div><span className="placeholder-tag">Participant requirements</span></div>
             <div className="standards-selector-intro">
-              <p>Select an age group and standard category to preview the requirements that will apply. Official event-specific values are pending organizer confirmation.</p>
+              <p>Select your age group and standard category to view the applicable time standard. The 11:30 AM event cutoff is separate from the official age-category time requirement.</p>
             </div>
             <StandardsSelector />
             <div className="detail-grid standards-detail-grid">
-              {standards.map((item, index) => <article className="detail-card" key={item.title}><span className="detail-number">0{index + 1}</span><h3>{item.title}</h3><p>{item.text}</p><span className="detail-status">Official guidance forthcoming</span></article>)}
+              {standards.map((item, index) => <article className="detail-card" key={item.title}><span className="detail-number">0{index + 1}</span><h3>{item.title}</h3><p>{item.text}</p><span className="detail-status">Event guidance</span></article>)}
             </div>
           </div>
-          <div className="notice-band"><span className="notice-symbol" aria-hidden="true">i</span><p>Do not treat placeholder times, route information, or standards as final. Follow the official instructions released by the event organizers.</p></div>
+          <div className="info-block safety-block">
+            <div className="info-block-heading"><div><p className="eyebrow">Route safety</p><h3>Support and participant responsibilities</h3></div></div>
+            <div className="detail-grid">
+              <article className="detail-card"><h3>Water and first aid</h3><p>Three volunteer-staffed water/first-aid stations will be placed at approximately three-mile intervals and serve participants in both directions. Water refill jugs and basic CLS supplies are planned. Bottled water and volunteer-provided snacks are subject to availability.</p></article>
+              <article className="detail-card"><h3>Bring your own supplies</h3><p>Participants are responsible for carrying their own water, snacks or energy food, and personal first-aid supplies. Do not rely on event-provided snacks or supplies as your sole sustainment plan.</p></article>
+              <article className="detail-card"><h3>Route conduct</h3><p>The course uses a paved shared bike path. Pedestrians have the right of way, but participants should make room for cyclists. A road guard will control the route&apos;s single road crossing. The path is drivable for emergencies only.</p></article>
+              <article className="detail-card"><h3>Medical concerns and withdrawal</h3><p>Notify station volunteers if injured, experiencing possible dehydration, or withdrawing. Volunteers will report serious concerns to emergency services. Participants who withdraw are responsible for arranging their own transportation unless emergency assistance is needed.</p></article>
+            </div>
+            <p className="section-intro">Local emergency dispatch will be notified about the event. Any on-site emergency-services presence is subject to availability and is not guaranteed. Carrying a fully charged cell phone is strongly recommended but not required.</p>
+          </div>
+          <div className="notice-band"><span className="notice-symbol" aria-hidden="true">i</span><p>Event details may be updated by the organizers. The event-wide completion cutoff is 11:30 AM; earning the official Norwegian Foot March certificate requires meeting the applicable age-group and category time standard.</p></div>
         </section>
 
         <section id="preparation" className="content-section preparation-section" aria-labelledby="preparation-title">
@@ -170,12 +202,11 @@ export default function Home() {
             <div><p className="eyebrow">Important</p><h3>Train progressively and listen to your body.</h3></div>
             <p>The source guide discusses endurance, equipment, hydration, fueling, and recovery. It does not establish this event&apos;s official course, schedule, participant standards, or medical protocol. Those details will be published separately once approved.</p>
           </div>
-          <p className="source-note">Source: Norwegian Foot March Training and Preparation Guide, provided for this event planning project (10 pages).</p>
         </section>
 
         <section id="updates" className="content-section updates-section" aria-labelledby="updates-title">
           <div className="updates-heading"><div><p className="eyebrow">From the organizers</p><h2 id="updates-title">Event updates</h2></div><p>Announcements and participant guidance will be published here as they become available.</p></div>
-          <article className="update-card"><div className="update-meta"><span>416th Civil Affairs Battalion</span><span>Event notice</span></div><h3>Norwegian Foot March · Oceanside</h3><p>The event website is being prepared. Check back for confirmed details and the official participant information packet.</p></article>
+          <article className="update-card"><div className="update-meta"><span>Ares Company</span><span>Event Update</span></div><h3>Norwegian Foot March · Oceanside</h3><p>The event has been approved by the Norwegian Embassy, and registration for the event is now OPEN</p></article>
         </section>
 
         <section id="faq" className="content-section faq-section" aria-labelledby="faq-title">
@@ -185,25 +216,26 @@ export default function Home() {
             <p className="section-intro">Quick answers and direct links to the information participants need most.</p>
           </div>
           <div className="homepage-faq">
-            <details><summary>How do I register?</summary><p>Registration is open. Use the <a href="/register">Norwegian Foot March registration page</a> to access the form. This is the permanent registration address; the form will be placed here when it is ready.</p></details>
-            <details><summary>Where can I find the route map?</summary><p>Visit <a href="#route-and-checkpoints">Route &amp; Checkpoints</a> in Event Information. The official map, distance, start and finish locations, and checkpoint details will be posted there once approved.</p></details>
+            <details><summary>How do I register?</summary><p>Online advance registration is encouraged and remains open through event day. Walk-up registration is also accepted during the 4:00–4:30 AM check-in window. Participation is free.</p></details>
+            <details><summary>Where does the march start and finish?</summary><p>The march starts at the western entrance of the San Luis Rey River Bike Trail and finishes at O&apos;Side Rock Garden near the beach. Event markers will guide participants toward the finish near the end of the route.</p></details>
             <details><summary>Which completion time applies to me?</summary><p>Use the <a href="#standards">Standards &amp; Requirements</a> section. Select your age group and standard category in the dropdowns to display the time supplied for this event. Review the final participant instructions for any additional requirements.</p></details>
             <details><summary>How should I prepare for the march?</summary><p>Review the <a href="#preparation">Norwegian Foot March Training and Preparation Packet</a>. It covers progressive endurance training, rucking, footwear and equipment preparation, hydration, fueling, and recovery. It is general preparation guidance, not a substitute for the official event instructions.</p></details>
-            <details><summary>Who can I contact with questions?</summary><p>Use the <a href="#contact">Organizer Contact</a> section below. The official point of contact and contact method will be added once provided by the organizers.</p></details>
+            <details><summary>What should I bring?</summary><p>Bring your own water, snacks/energy food, personal first-aid supplies, headlamp or suitable light source, and reflective belt worn around your rucksack. Event water refills and basic CLS supplies will be available at route stations, but snacks are not guaranteed.</p></details>
+            <details><summary>Who can I contact with questions?</summary><p>Email the event point of contact at <a href="mailto:Matthew.r.pantel.mil@army.mil">Matthew.r.pantel.mil@army.mil</a>. No event phone numbers are published.</p></details>
           </div>
         </section>
         <section id="contact" className="content-section contact-section" aria-labelledby="contact-title">
           <div className="section-heading">
             <p className="eyebrow">Need assistance?</p>
             <h2 id="contact-title">Organizer contact</h2>
-            <p className="section-intro">Official contact details will be published here when confirmed by the event organizers.</p>
+            <p className="section-intro">For participant questions and registration assistance, contact the event point of contact.</p>
           </div>
-          <div className="contact-placeholder"><h3>Contact information forthcoming</h3><p>The event point of contact and preferred method for participant questions will be listed here. No personal or unofficial contact details are displayed.</p></div>
+          <div className="contact-placeholder"><h3>Event point of contact</h3><p>Matthew Pantel · <a href="mailto:Matthew.r.pantel.mil@army.mil">Matthew.r.pantel.mil@army.mil</a></p></div>
         </section>
       </main>
       <footer className="site-footer">
         <div className="footer-main"><div className="footer-brand"><span className="footer-unit">416th</span><div><p className="footer-title">Norwegian Foot March</p><p className="footer-subtitle">Oceanside, California · 23 January 2027</p></div></div><div className="footer-links"><a href="#history">History</a><a href="#event-info">Event information</a><a href="#preparation">Preparation</a><a href="#updates">Updates</a><a href="#faq">FAQ</a><a href="#contact">Contact</a><a href="#main-content">Back to top ↑</a></div></div>
-        <div className="footer-bottom"><span>416th Civil Affairs Battalion</span><span>Official event information · Details subject to confirmation</span></div>
+        <div className="footer-bottom"><span>Ares Company</span><span>Ares Company · Oceanside, California</span></div>
       </footer>
     </>
   );

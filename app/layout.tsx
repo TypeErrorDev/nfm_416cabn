@@ -3,9 +3,9 @@ import "./globals.css";
 import { body, display, mono } from "./fonts";
 
 export const metadata: Metadata = {
-  title: "Norwegian Foot March | 416th Civil Affairs Battalion",
+  title: "Norwegian Foot March | Ares Company",
   description:
-    "Official event information for the Norwegian Foot March hosted by the 416th Civil Affairs Battalion in Oceanside, California, on 23 January 2027.",
+    "Official event information for the Norwegian Foot March hosted by the Ares Company in Oceanside, California, on 23 January 2027.",
 };
 
 export default function RootLayout({
