@@ -18,7 +18,7 @@ export default function RegistrationPage() {
           </p>
         </div>
         <RegistrationForm />
-        <Link className="btn btn-ghost registration-home-link" href="/">Return to event home</Link>
+        <div className="confirmation-actions"><Link className="btn btn-ghost registration-home-link" href="/">Return to event home</Link><Link className="btn btn-ghost" href="/manage-registration">Already registered? Manage your registration</Link></div>
       </div>
     </main>
   );
