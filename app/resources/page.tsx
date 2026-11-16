@@ -10,7 +10,7 @@ export default function ResourcesPage() {
       <main id="main-content">
         <section className="resources-hero" aria-labelledby="resources-title">
           <div className="resources-hero-inner">
-            <p className="eyebrow">416th Civil Affairs Battalion · Participant information</p>
+            <p className="eyebrow">Ares Company · Participant information</p>
             <h1 id="resources-title">Participant resources</h1>
             <p>A central place for preparation material, event documents, answers to common questions, and organizer-approved updates for the Norwegian Foot March in Oceanside.</p>
           </div>
@@ -96,7 +96,7 @@ export default function ResourcesPage() {
       </main>
       <footer className="site-footer">
         <div className="footer-main"><div className="footer-brand"><span className="footer-unit">416th</span><div><p className="footer-title">Norwegian Foot March</p><p className="footer-subtitle">Oceanside, California · 23 January 2027</p></div></div><div className="footer-links"><Link href="/">Event home</Link><Link href="/#event-info">Event information</Link><Link href="/#preparation">Preparation</Link><Link href="/#updates">Updates</Link></div></div>
-        <div className="footer-bottom"><span>416th Civil Affairs Battalion</span><span>Official event information · Details subject to confirmation</span></div>
+        <div className="footer-bottom"><span>Ares Company</span><span>Official event information · Details subject to confirmation</span></div>
       </footer>
     </>
   );
