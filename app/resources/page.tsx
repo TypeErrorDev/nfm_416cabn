@@ -95,7 +95,7 @@ export default function ResourcesPage() {
         </div>
       </main>
       <footer className="site-footer">
-        <div className="footer-main"><div className="footer-brand"><span className="footer-unit">416th</span><div><p className="footer-title">Norwegian Foot March</p><p className="footer-subtitle">Oceanside, California · 23 January 2027</p></div></div><div className="footer-links"><Link href="/">Event home</Link><Link href="/#event-info">Event information</Link><Link href="/#preparation">Preparation</Link><Link href="/#updates">Updates</Link></div></div>
+        <div className="footer-main"><div className="footer-brand"><Image src="/ares%20logo.jpg" alt="Ares Company logo" width={42} height={42} className="footer-unit-logo" /><div><p className="footer-title">Norwegian Foot March</p><p className="footer-subtitle">Oceanside, California · 23 January 2027</p></div></div><div className="footer-links"><Link href="/">Event home</Link><Link href="/#event-info">Event information</Link><Link href="/#preparation">Preparation</Link><Link href="/#updates">Updates</Link></div></div>
         <div className="footer-bottom"><span>Ares Company</span><span>Official event information · Details subject to confirmation</span></div>
       </footer>
     </>

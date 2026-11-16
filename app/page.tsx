@@ -234,7 +234,7 @@ export default function Home() {
         </section>
       </main>
       <footer className="site-footer">
-        <div className="footer-main"><div className="footer-brand"><span className="footer-unit">416th</span><div><p className="footer-title">Norwegian Foot March</p><p className="footer-subtitle">Oceanside, California · 23 January 2027</p></div></div><div className="footer-links"><a href="#history">History</a><a href="#event-info">Event information</a><a href="#preparation">Preparation</a><a href="#updates">Updates</a><a href="#faq">FAQ</a><a href="#contact">Contact</a><a href="#main-content">Back to top ↑</a></div></div>
+        <div className="footer-main"><div className="footer-brand"><Image src="/ares%20logo.jpg" alt="Ares Company logo" width={42} height={42} className="footer-unit-logo" /><div><p className="footer-title">Norwegian Foot March</p><p className="footer-subtitle">Oceanside, California · 23 January 2027</p></div></div><div className="footer-links"><a href="#history">History</a><a href="#event-info">Event information</a><a href="#preparation">Preparation</a><a href="#updates">Updates</a><a href="#faq">FAQ</a><a href="#contact">Contact</a><a href="#main-content">Back to top ↑</a></div></div>
         <div className="footer-bottom"><span>Ares Company</span><span>Ares Company · Oceanside, California</span></div>
       </footer>
     </>
