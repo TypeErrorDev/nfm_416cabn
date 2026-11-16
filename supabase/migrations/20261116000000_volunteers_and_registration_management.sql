@@ -143,3 +143,63 @@ drop trigger if exists participants_broadcast_count_on_status_change on public.p
 create trigger participants_broadcast_count_on_status_change after update of registration_status on public.participants
 for each row when (old.registration_status is distinct from new.registration_status)
 execute function public.broadcast_participant_count_on_status_change();
+
+
+-- Keep participant records; organizers may mark a registration withdrawn.
+drop policy if exists "Active organizers can update registration status" on public.participants;
+create policy "Active organizers can update registration status"
+  on public.participants for update
+  to authenticated
+  using (
+    exists (
+      select 1 from public.organizer_profiles op
+      where op.user_id = (select auth.uid()) and op.is_active = true
+    )
+  )
+  with check (
+    exists (
+      select 1 from public.organizer_profiles op
+      where op.user_id = (select auth.uid()) and op.is_active = true
+    )
+  );
+
+grant update (registration_status) on public.participants to authenticated;
+grant select on public.volunteers to authenticated;
+grant insert on public.volunteers to anon, authenticated;
+
+-- Count only active participants on the public site.
+create or replace function public.get_public_participant_count()
+returns bigint
+language sql
+stable
+security definer
+set search_path = ''
+as $$
+  select count(*) from public.participants where registration_status = 'Active';
+$$;
+revoke all on function public.get_public_participant_count() from public;
+grant execute on function public.get_public_participant_count() to anon, authenticated;
+
+-- Notify the existing public count listener when a participant withdraws.
+create or replace function public.broadcast_participant_count_update()
+returns trigger
+language plpgsql
+security definer
+set search_path = ''
+as $$
+begin
+  perform realtime.send(
+    jsonb_build_object('updated_at', now()),
+    'participant_count_updated',
+    'public:participant-count',
+    true
+  );
+  return new;
+end;
+$$;
+drop trigger if exists participant_count_status_broadcast on public.participants;
+create trigger participant_count_status_broadcast
+  after update of registration_status on public.participants
+  for each row
+  when (old.registration_status is distinct from new.registration_status)
+  execute function public.broadcast_participant_count_update();
