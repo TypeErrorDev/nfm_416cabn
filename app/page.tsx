@@ -1,6 +1,7 @@
 import Navbar from "./components/Navbar";
 import StandardsSelector from "./components/StandardsSelector";
 import ParticipantCount from "./components/ParticipantCount";
+import Image from "next/image";
 
 const eventFacts = [
   { label: "Date", value: "23 January 2027" },
@@ -138,9 +139,26 @@ export default function Home() {
 
           <div id="route-and-checkpoints" className="info-block route-block">
             <div className="info-block-heading"><div><p className="eyebrow">Course details</p><h3>Route &amp; checkpoints</h3></div><span className="placeholder-tag">CONOP route</span></div>
-            <div className="route-placeholder" role="note" aria-label="Route map and directions">
-              <div className="route-placeholder-lines" aria-hidden="true"><span /><span /><span /></div>
-              <div className="route-placeholder-content"><span className="route-pin" aria-hidden="true">+</span><strong>San Luis Rey Riverwalk Bike Path</strong><span>Out-and-back course with a beachfront finish at O&apos;Side Rock Garden. The approved route diagram will be added from the event CONOP.</span></div>
+            <div className="route-gallery" aria-label="Route maps">
+              <figure className="route-gallery-overview">
+                <Image src="/route-overview.jpg" alt="Overall route map for the Norwegian Foot March along the San Luis Rey Riverwalk Bike Path" width={1600} height={1000} priority />
+                <figcaption><strong>Full route overview</strong><span>30K out-and-back course · San Luis Rey Riverwalk Bike Path</span></figcaption>
+              </figure>
+              <div className="route-gallery-details">
+                <figure>
+                  <Image src="/route-start-area.jpg" alt="Detailed route map view showing one section of the Norwegian Foot March course" width={1200} height={900} />
+                  <figcaption><strong>Route detail 1</strong><span>Course detail from the event route map</span></figcaption>
+                </figure>
+                <figure>
+                  <Image src="/route-inland-turnaround.jpg" alt="Detailed route map view showing another section of the Norwegian Foot March course" width={1200} height={900} />
+                  <figcaption><strong>Route detail 2</strong><span>Course detail from the event route map</span></figcaption>
+                </figure>
+                <figure>
+                  <Image src="/route-finish-area.jpg" alt="Detailed route map view showing a further section of the Norwegian Foot March course" width={1200} height={900} />
+                  <figcaption><strong>Route detail 3</strong><span>Course detail from the event route map</span></figcaption>
+                </figure>
+              </div>
+              <p className="route-gallery-note">Use the event-day instructions and volunteer direction at checkpoints. Map images are provided as visual references and do not replace the safety briefing.</p>
             </div>
             <dl className="route-facts">
               {routeItems.map((item) => <div key={item.label}><dt>{item.label}</dt><dd>{item.value}</dd></div>)}
