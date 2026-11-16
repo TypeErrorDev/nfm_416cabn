@@ -20,7 +20,7 @@ export default function ResourcesPage() {
             <div className="resources-section-heading">
               <p className="eyebrow">Documents &amp; downloads</p>
               <h2 id="downloads-title">Resource library</h2>
-              <p>Only materials currently available are linked below. Additional participant documents will be added after release by the event organizers.</p>
+              <p>Event information for the January 23, 2027 Norwegian Foot March in Oceanside, California.</p>
             </div>
             <div className="resource-grid">
               <article className="resource-card">
@@ -53,10 +53,11 @@ export default function ResourcesPage() {
               <h2 id="guidance-title">Where to find information</h2>
             </div>
             <ul className="resource-list">
-              <li><strong>Event schedule and timeline</strong><span>Home page · Event Information</span></li>
+              <li><strong>Event schedule and timeline</strong><span>Check-in 4:00–4:30 AM · Formation 4:45 AM · Start 5:30 AM · Cutoff 11:30 AM</span></li>
               <li><strong>Age-group time standards</strong><span>Home page · Standards &amp; Requirements selector</span></li>
               <li><strong>Training overview</strong><span>Home page · Training &amp; Preparation</span></li>
               <li><strong>Official announcements</strong><span>Home page · Event Updates</span></li>
+              <li><strong>Route</strong><span>30K / 18.64 miles · San Luis Rey Riverwalk Bike Path · beachfront finish at O'Side Rock Garden</span></li>
             </ul>
           </section>
 
