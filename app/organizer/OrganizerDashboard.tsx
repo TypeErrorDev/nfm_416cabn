@@ -209,7 +209,7 @@ export default function OrganizerDashboard() {
   }
 
   if (viewState === "loading") {
-    return <main className="organizer-page"><div className="organizer-panel"><p className="eyebrow">416th Civil Affairs Battalion</p><h1>Organizer dashboard</h1><p>Verifying access and loading registrations...</p></div></main>;
+    return <main className="organizer-page"><div className="organizer-panel"><p className="eyebrow">Ares Company</p><h1>Organizer dashboard</h1><p>Verifying access and loading registrations...</p></div></main>;
   }
 
   if (viewState === "unauthorized") {
@@ -224,7 +224,7 @@ export default function OrganizerDashboard() {
     <main className="organizer-page">
       <div className="organizer-dashboard">
         <header className="organizer-header">
-          <div><p className="eyebrow">416th Civil Affairs Battalion · Event administration</p><h1>Organizer dashboard</h1><p>Norwegian Foot March · January 23, 2027 · Oceanside, California</p></div>
+          <div><p className="eyebrow">Ares Company · Event administration</p><h1>Organizer dashboard</h1><p>Norwegian Foot March · January 23, 2027 · Oceanside, California</p></div>
           <div className="organizer-header-actions"><Link className="btn btn-ghost" href="/">View public site</Link><button className="btn btn-ghost" onClick={handleSignOut}>Sign out</button></div>
         </header>
 
