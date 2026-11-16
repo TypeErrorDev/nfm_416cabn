@@ -10,7 +10,7 @@ const eventFacts = [
 ];
 
 const scheduleItems = [
-  { time: "4:00–4:30 AM", title: "Participant check-in and first ruck weigh-in", description: "Report to O'Side Rock Garden for registration/accountability and the initial 25 lb dry-weight rucksack inspection. Water is excluded from the weight." },
+  { time: "4:00–4:30 AM", title: "Participant check-in and first ruck weigh-in", description: "Report to O'Side Rock Garden for registration/accountability and the initial 25 lb dry-weight rucksack inspection. After check-in, proceed to the San Luis Rey River Bike Trail western entrance for the start." },
   { time: "4:45 AM", title: "Opening formation and safety briefing", description: "Participants receive the event-day briefing and final instructions." },
   { time: "5:30 AM", title: "Official march start", description: "The 30K (18.64-mile) march begins at the western entrance of the San Luis Rey River Bike Trail." },
   { time: "11:30 AM", title: "Completion cutoff", description: "Six hours after the official start. Participants must report to the finish-line table and complete the finish procedures by this time." },
@@ -156,6 +156,16 @@ export default function Home() {
             <div className="detail-grid standards-detail-grid">
               {standards.map((item, index) => <article className="detail-card" key={item.title}><span className="detail-number">0{index + 1}</span><h3>{item.title}</h3><p>{item.text}</p><span className="detail-status">Event guidance</span></article>)}
             </div>
+          </div>
+          <div className="info-block safety-block">
+            <div className="info-block-heading"><div><p className="eyebrow">Route safety</p><h3>Support and participant responsibilities</h3></div></div>
+            <div className="detail-grid">
+              <article className="detail-card"><h3>Water and first aid</h3><p>Three volunteer-staffed water/first-aid stations will be placed at approximately three-mile intervals and serve participants in both directions. Water refill jugs and basic CLS supplies are planned. Bottled water and volunteer-provided snacks are subject to availability.</p></article>
+              <article className="detail-card"><h3>Bring your own supplies</h3><p>Participants are responsible for carrying their own water, snacks or energy food, and personal first-aid supplies. Do not rely on event-provided snacks or supplies as your sole sustainment plan.</p></article>
+              <article className="detail-card"><h3>Route conduct</h3><p>The course uses a paved shared bike path. Pedestrians have the right of way, but participants should make room for cyclists. A road guard will control the route's single road crossing. The path is drivable for emergencies only.</p></article>
+              <article className="detail-card"><h3>Medical concerns and withdrawal</h3><p>Notify station volunteers if injured, experiencing possible dehydration, or withdrawing. Volunteers will report serious concerns to emergency services. Participants who withdraw are responsible for arranging their own transportation unless emergency assistance is needed.</p></article>
+            </div>
+            <p className="section-intro">Local emergency dispatch will be notified about the event. Any on-site emergency-services presence is subject to availability and is not guaranteed. Carrying a fully charged cell phone is strongly recommended but not required.</p>
           </div>
           <div className="notice-band"><span className="notice-symbol" aria-hidden="true">i</span><p>Event details may be updated by the organizers. The event-wide completion cutoff is 11:30 AM; earning the official Norwegian Foot March certificate requires meeting the applicable age-group and category time standard.</p></div>
         </section>
