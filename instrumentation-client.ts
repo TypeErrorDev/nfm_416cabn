@@ -10,5 +10,9 @@ initBotId({
       path: "/api/participant/manage",
       method: "POST",
     },
+    {
+      path: "/api/participant/manage",
+      method: "POST",
+    },
   ],
 });
