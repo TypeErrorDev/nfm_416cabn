@@ -25,7 +25,6 @@ type RegistrationPayload = {
   emergency_contact_name: string;
   emergency_contact_relationship: string;
   emergency_contact_phone: string;
-  website?: string;
 };
 
 function cleanText(value: unknown, maxLength: number): string | null {
@@ -63,7 +62,7 @@ function validatePayload(value: unknown): RegistrationPayload | null {
     !emergency_contact_phone ||
     !/^[+\d().\s-]{7,30}$/.test(emergency_contact_phone) ||
     emergency_contact_phone.replace(/\D/g, "").length < 7 ||
-    (body.branch !== "CIV" && !unitValue) ||
+    (body.branch !== "CIV" && !unitValue)
   ) {
     return null;
   }
