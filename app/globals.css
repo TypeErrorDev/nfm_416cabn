@@ -131,7 +131,15 @@ a:focus-visible {
   gap: 12px;
 }
 
-.brand-mark,
+.brand-mark {
+  display: block;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  border: 0;
+  object-fit: contain;
+}
+
 .footer-unit {
   display: grid;
   width: 38px;
