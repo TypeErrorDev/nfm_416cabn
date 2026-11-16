@@ -6,5 +6,9 @@ initBotId({
       path: "/api/register",
       method: "POST",
     },
+    {
+      path: "/api/participant/manage",
+      method: "POST",
+    },
   ],
 });
