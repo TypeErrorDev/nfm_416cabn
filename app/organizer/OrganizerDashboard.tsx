@@ -90,7 +90,16 @@ export default function OrganizerDashboard() {
   }, [router]);
 
   useEffect(() => {
-    void loadParticipants();
+    let cancelled = false;
+
+    // Defer the async load until after the effect has completed.
+    void Promise.resolve().then(() => {
+      if (!cancelled) return loadParticipants();
+    });
+
+    return () => {
+      cancelled = true;
+    };
   }, [loadParticipants]);
 
   const filteredParticipants = useMemo(() => {
