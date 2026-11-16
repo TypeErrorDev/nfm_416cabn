@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const navigationItems = [
   { label: "History", href: "#history" },
   { label: "Event info", href: "#event-info" },
@@ -12,7 +14,7 @@ export default function Navbar() {
     <header className="site-header">
       <nav className="site-nav" aria-label="Main navigation">
         <a className="brand-lockup" href="#main-content" aria-label="Norwegian Foot March home">
-          <span className="brand-mark" aria-hidden="true">416</span>
+          <Image className="brand-mark" src="/ares%20logo.jpg" alt="Ares Company logo" width={44} height={44} priority />
           <span className="brand-copy"><span className="brand-name">Norwegian Foot March</span><span className="brand-location">Oceanside · California</span></span>
         </a>
         <div className="nav-links">
