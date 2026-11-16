@@ -6,7 +6,7 @@ import Image from "next/image";
 const eventFacts = [
   { label: "Date", value: "23 January 2027" },
   { label: "Location", value: "Oceanside, California" },
-  { label: "Host unit", value: "416th Civil Affairs Battalion" },
+  { label: "Host unit", value: "Ares Company" },
   { label: "Registration", value: "Open" },
 ];
 
@@ -47,7 +47,7 @@ export default function Home() {
         <section className="hero-section" aria-labelledby="hero-title">
           <div className="hero-inner">
             <div className="hero-copy">
-              <p className="eyebrow">416th Civil Affairs Battalion · Oceanside, California</p>
+              <p className="eyebrow">Ares Company · Oceanside, California</p>
               <p className="hero-kicker">Norsk Fotmarsj</p>
               <h1 id="hero-title" className="hero-title">Norwegian<br />Foot March</h1>
               <p className="hero-description">
@@ -206,7 +206,7 @@ export default function Home() {
 
         <section id="updates" className="content-section updates-section" aria-labelledby="updates-title">
           <div className="updates-heading"><div><p className="eyebrow">From the organizers</p><h2 id="updates-title">Event updates</h2></div><p>Announcements and participant guidance will be published here as they become available.</p></div>
-          <article className="update-card"><div className="update-meta"><span>416th Civil Affairs Battalion</span><span>Event Update</span></div><h3>Norwegian Foot March · Oceanside</h3><p>The event has been approved by the Norwegian Embassy, and registration for the event is now OPEN</p></article>
+          <article className="update-card"><div className="update-meta"><span>Ares Company</span><span>Event Update</span></div><h3>Norwegian Foot March · Oceanside</h3><p>The event has been approved by the Norwegian Embassy, and registration for the event is now OPEN</p></article>
         </section>
 
         <section id="faq" className="content-section faq-section" aria-labelledby="faq-title">
@@ -235,7 +235,7 @@ export default function Home() {
       </main>
       <footer className="site-footer">
         <div className="footer-main"><div className="footer-brand"><span className="footer-unit">416th</span><div><p className="footer-title">Norwegian Foot March</p><p className="footer-subtitle">Oceanside, California · 23 January 2027</p></div></div><div className="footer-links"><a href="#history">History</a><a href="#event-info">Event information</a><a href="#preparation">Preparation</a><a href="#updates">Updates</a><a href="#faq">FAQ</a><a href="#contact">Contact</a><a href="#main-content">Back to top ↑</a></div></div>
-        <div className="footer-bottom"><span>416th Civil Affairs Battalion</span><span>416th Civil Affairs Battalion · Oceanside, California</span></div>
+        <div className="footer-bottom"><span>Ares Company</span><span>Ares Company · Oceanside, California</span></div>
       </footer>
     </>
   );
