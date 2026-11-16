@@ -86,7 +86,7 @@ create or replace function public.broadcast_participant_count_status_change()
 returns trigger language plpgsql security definer set search_path = ''
 as $$
 begin
-  perform realtime.send(jsonb_build_object('updated_at', now()), 'participant_count_updated', 'public:participant-count', true);
+  perform realtime.send(jsonb_build_object('updated_at', now()), 'participant_count_updated', 'public:participant-count', false);
   return new;
 end;
 $$;
