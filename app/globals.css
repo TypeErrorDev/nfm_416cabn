@@ -1815,3 +1815,5 @@ a:focus-visible {
 @media (max-width: 760px) {
   .route-gallery-details { grid-template-columns: 1fr; }
 }
+
+.registration-honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
