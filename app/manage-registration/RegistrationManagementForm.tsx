@@ -8,6 +8,7 @@ export default function RegistrationManagementForm() {
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const form = event.currentTarget;
     setStatus("submitting");
     setMessage("");
     const data = new FormData(event.currentTarget);
@@ -25,7 +26,7 @@ export default function RegistrationManagementForm() {
       if (!response.ok) throw new Error(typeof result?.error === "string" ? result.error : "We could not update your registration.");
       setStatus("success");
       setMessage("Your registration has been updated successfully.");
-      event.currentTarget.reset();
+      form.reset();
     } catch (error) {
       setStatus("error");
       setMessage(error instanceof Error ? error.message : "We could not update your registration. Please try again.");
