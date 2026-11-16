@@ -11,9 +11,9 @@ const eventFacts = [
 ];
 
 const scheduleItems = [
-  { time: "4:00–4:30 AM", title: "Participant check-in and first ruck weigh-in", description: "Report to O'Side Rock Garden for registration/accountability and the initial 25 lb dry-weight rucksack inspection. After check-in, proceed to the San Luis Rey River Bike Trail western entrance for the start." },
+  { time: "4:00–4:30 AM", title: "Participant check-in and first ruck weigh-in", description: "Report to the western trailhead of the San Luis Rey River Bike Trail for registration, accountability, and the initial 25 lb dry-weight rucksack inspection. Check-in, formation, briefing, and the official march start all take place at this trailhead." },
   { time: "4:45 AM", title: "Opening formation and safety briefing", description: "Participants receive the event-day briefing and final instructions." },
-  { time: "5:30 AM", title: "Official march start", description: "The 30K (18.64-mile) march begins at the western entrance of the San Luis Rey River Bike Trail." },
+  { time: "5:30 AM", title: "Official march start", description: "The 30K (18.64-mile) march begins at the western trailhead of the San Luis Rey River Bike Trail, which is also the registration and check-in location." },
   { time: "11:30 AM", title: "Completion cutoff", description: "Six hours after the official start. Participants must report to the finish-line table and complete the finish procedures by this time." },
 ];
 
@@ -217,7 +217,7 @@ export default function Home() {
           </div>
           <div className="homepage-faq">
             <details><summary>How do I register?</summary><p>Online advance registration is encouraged and remains open through event day. Walk-up registration is also accepted during the 4:00–4:30 AM check-in window. Participation is free.</p></details>
-            <details><summary>Where does the march start and finish?</summary><p>The march starts at the western entrance of the San Luis Rey River Bike Trail and finishes at O&apos;Side Rock Garden near the beach. Event markers will guide participants toward the finish near the end of the route.</p></details>
+            <details><summary>Where does the march start and finish?</summary><p>Registration, check-in, formation, and the march start are all at the western trailhead of the San Luis Rey River Bike Trail. The march finishes at O&apos;Side Rock Garden near the beach.</p></details>
             <details><summary>Which completion time applies to me?</summary><p>Use the <a href="#standards">Standards &amp; Requirements</a> section. Select your age group and standard category in the dropdowns to display the time supplied for this event. Review the final participant instructions for any additional requirements.</p></details>
             <details><summary>How should I prepare for the march?</summary><p>Review the <a href="#preparation">Norwegian Foot March Training and Preparation Packet</a>. It covers progressive endurance training, rucking, footwear and equipment preparation, hydration, fueling, and recovery. It is general preparation guidance, not a substitute for the official event instructions.</p></details>
             <details><summary>What should I bring?</summary><p>Bring your own water, snacks/energy food, personal first-aid supplies, headlamp or suitable light source, and reflective belt worn around your rucksack. Event water refills and basic CLS supplies will be available at route stations, but snacks are not guaranteed.</p></details>
