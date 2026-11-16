@@ -140,7 +140,7 @@ export default function Home() {
             <div className="info-block-heading"><div><p className="eyebrow">Course details</p><h3>Route &amp; checkpoints</h3></div><span className="placeholder-tag">CONOP route</span></div>
             <div className="route-placeholder" role="note" aria-label="Route map and directions">
               <div className="route-placeholder-lines" aria-hidden="true"><span /><span /><span /></div>
-              <div className="route-placeholder-content"><span className="route-pin" aria-hidden="true">+</span><strong>San Luis Rey Riverwalk Bike Path</strong><span>Out-and-back course with a beachfront finish at O'Side Rock Garden. The approved route diagram will be added from the event CONOP.</span></div>
+              <div className="route-placeholder-content"><span className="route-pin" aria-hidden="true">+</span><strong>San Luis Rey Riverwalk Bike Path</strong><span>Out-and-back course with a beachfront finish at O&apos;Side Rock Garden. The approved route diagram will be added from the event CONOP.</span></div>
             </div>
             <dl className="route-facts">
               {routeItems.map((item) => <div key={item.label}><dt>{item.label}</dt><dd>{item.value}</dd></div>)}
@@ -162,7 +162,7 @@ export default function Home() {
             <div className="detail-grid">
               <article className="detail-card"><h3>Water and first aid</h3><p>Three volunteer-staffed water/first-aid stations will be placed at approximately three-mile intervals and serve participants in both directions. Water refill jugs and basic CLS supplies are planned. Bottled water and volunteer-provided snacks are subject to availability.</p></article>
               <article className="detail-card"><h3>Bring your own supplies</h3><p>Participants are responsible for carrying their own water, snacks or energy food, and personal first-aid supplies. Do not rely on event-provided snacks or supplies as your sole sustainment plan.</p></article>
-              <article className="detail-card"><h3>Route conduct</h3><p>The course uses a paved shared bike path. Pedestrians have the right of way, but participants should make room for cyclists. A road guard will control the route's single road crossing. The path is drivable for emergencies only.</p></article>
+              <article className="detail-card"><h3>Route conduct</h3><p>The course uses a paved shared bike path. Pedestrians have the right of way, but participants should make room for cyclists. A road guard will control the route&apos;s single road crossing. The path is drivable for emergencies only.</p></article>
               <article className="detail-card"><h3>Medical concerns and withdrawal</h3><p>Notify station volunteers if injured, experiencing possible dehydration, or withdrawing. Volunteers will report serious concerns to emergency services. Participants who withdraw are responsible for arranging their own transportation unless emergency assistance is needed.</p></article>
             </div>
             <p className="section-intro">Local emergency dispatch will be notified about the event. Any on-site emergency-services presence is subject to availability and is not guaranteed. Carrying a fully charged cell phone is strongly recommended but not required.</p>
@@ -199,7 +199,7 @@ export default function Home() {
           </div>
           <div className="homepage-faq">
             <details><summary>How do I register?</summary><p>Online advance registration is encouraged and remains open through event day. Walk-up registration is also accepted during the 4:00–4:30 AM check-in window. Participation is free.</p></details>
-            <details><summary>Where does the march start and finish?</summary><p>The march starts at the western entrance of the San Luis Rey River Bike Trail and finishes at O'Side Rock Garden near the beach. Event markers will guide participants toward the finish near the end of the route.</p></details>
+            <details><summary>Where does the march start and finish?</summary><p>The march starts at the western entrance of the San Luis Rey River Bike Trail and finishes at O&apos;Side Rock Garden near the beach. Event markers will guide participants toward the finish near the end of the route.</p></details>
             <details><summary>Which completion time applies to me?</summary><p>Use the <a href="#standards">Standards &amp; Requirements</a> section. Select your age group and standard category in the dropdowns to display the time supplied for this event. Review the final participant instructions for any additional requirements.</p></details>
             <details><summary>How should I prepare for the march?</summary><p>Review the <a href="#preparation">Norwegian Foot March Training and Preparation Packet</a>. It covers progressive endurance training, rucking, footwear and equipment preparation, hydration, fueling, and recovery. It is general preparation guidance, not a substitute for the official event instructions.</p></details>
             <details><summary>What should I bring?</summary><p>Bring your own water, snacks/energy food, personal first-aid supplies, headlamp or suitable light source, and reflective belt worn around your rucksack. Event water refills and basic CLS supplies will be available at route stations, but snacks are not guaranteed.</p></details>
