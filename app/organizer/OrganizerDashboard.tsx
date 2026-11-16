@@ -37,7 +37,6 @@ export default function OrganizerDashboard() {
   const router = useRouter();
   const [participants, setParticipants] = useState<Participant[]>([]);
   const [volunteers, setVolunteers] = useState<Volunteer[]>([]);
-  const [volunteers, setVolunteers] = useState<Volunteer[]>([]);
   const [viewState, setViewState] = useState<ViewState>("loading");
   const [query, setQuery] = useState("");
   const [message, setMessage] = useState("");
@@ -116,8 +115,6 @@ export default function OrganizerDashboard() {
       cancelled = true;
     };
   }, [loadParticipants]);
-
-  const activeParticipants = participants.filter((item) => item.registration_status === "Active");
 
   const filteredParticipants = useMemo(() => {
     const normalized = query.trim().toLowerCase();
@@ -267,7 +264,7 @@ export default function OrganizerDashboard() {
           {message && <p className="registration-feedback" role="status">{message}</p>}
           <div className="organizer-table-scroll">
             <table className="organizer-table">
-              <thead><tr><th>Participant</th><th>Age</th><th>Category</th><th>Branch / unit</th><th>For time?</th><th>Registration</th><th>Ruck time</th><th>Completion status</th><th>Registration</th><th>Registered</th>{showContacts && <th>Emergency contact</th>}<th><span className="sr-only">Actions</span></th></tr></thead>
+              <thead><tr><th>Participant</th><th>Age</th><th>Category</th><th>Branch / unit</th><th>For time?</th><th>Ruck time</th><th>Completion status</th><th>Registration</th><th>Registered</th>{showContacts && <th>Emergency contact</th>}<th><span className="sr-only">Actions</span></th></tr></thead>
               <tbody>
                 {filteredParticipants.map((item) => <tr key={item.id}>
                   <td><strong>{item.full_name}</strong><span>{item.email}</span></td>
