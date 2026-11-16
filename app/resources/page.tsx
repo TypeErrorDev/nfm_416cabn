@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Navbar from "../components/Navbar";
+import Image from "next/image";
 
 export default function ResourcesPage() {
   return (
@@ -16,6 +17,26 @@ export default function ResourcesPage() {
         </section>
 
         <div className="resources-content">
+          <section className="resources-section" aria-labelledby="route-gallery-title">
+            <div className="resources-section-heading">
+              <p className="eyebrow">Course reference</p>
+              <h2 id="route-gallery-title">Route maps</h2>
+              <p>The 30K course follows the San Luis Rey Riverwalk Bike Path as an out-and-back route, starting at the western trail entrance and finishing at O&apos;Side Rock Garden.</p>
+            </div>
+            <div className="route-gallery">
+              <figure className="route-gallery-overview">
+                <Image src="/route-overview.jpg" alt="Overall route map for the Norwegian Foot March along the San Luis Rey Riverwalk Bike Path" width={1600} height={1000} />
+                <figcaption><strong>Full route overview</strong><span>30K out-and-back course</span></figcaption>
+              </figure>
+              <div className="route-gallery-details">
+                <figure><Image src="/route-start-area.jpg" alt="Detailed route map view showing one section of the course" width={1200} height={900} /><figcaption><strong>Route detail 1</strong><span>Course detail from the event route map</span></figcaption></figure>
+                <figure><Image src="/route-inland-turnaround.jpg" alt="Detailed route map view showing another section of the course" width={1200} height={900} /><figcaption><strong>Route detail 2</strong><span>Course detail from the event route map</span></figcaption></figure>
+                <figure><Image src="/route-finish-area.jpg" alt="Detailed route map view showing a further section of the course" width={1200} height={900} /><figcaption><strong>Route detail 3</strong><span>Course detail from the event route map</span></figcaption></figure>
+              </div>
+              <p className="route-gallery-note">These maps are visual references. Follow event-day instructions and volunteer direction; the maps do not replace the safety briefing.</p>
+            </div>
+          </section>
+
           <section className="resources-section" aria-labelledby="downloads-title">
             <div className="resources-section-heading">
               <p className="eyebrow">Documents &amp; downloads</p>
@@ -35,9 +56,10 @@ export default function ResourcesPage() {
                 <p>The event-specific packet will be posted here once the organizers provide and approve the final document.</p>
               </article>
               <article className="resource-card">
-                <span className="resource-status">Forthcoming · Event document</span>
-                <h3>Route and checkpoint information</h3>
-                <p>The approved course map, distance, start and finish details, and checkpoint information will be added when available.</p>
+                <span className="resource-status">Available · Route reference</span>
+                <h3>Route maps</h3>
+                <p>View the full course overview and three detailed map views in the Route Maps section above.</p>
+                <Link className="btn btn-primary" href="#route-gallery-title">View route maps</Link>
               </article>
               <article className="resource-card">
                 <span className="resource-status">Forthcoming · Event document</span>
