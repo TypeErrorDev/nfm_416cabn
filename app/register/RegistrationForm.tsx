@@ -115,7 +115,7 @@ export default function RegistrationForm() {
           <strong>What happens next?</strong>
           <p>Continue checking the event website for the confirmed schedule, route, and final instructions. This screen confirms receipt of your registration; it is not a completion certificate.</p>
         </div>
-        <div className="confirmation-actions">
+        <div className="confirmation-actions">\n          {!isVolunteer && <Link className="btn btn-ghost" href="/manage-registration">Manage your registration</Link>}
           <Link className="btn btn-primary" href="/">Return to event home</Link>
           <button className="btn btn-ghost" type="button" onClick={() => { setStatus("idle"); setConfirmedName(""); setManagementCode(""); }}>Register another person</button>
         </div>
