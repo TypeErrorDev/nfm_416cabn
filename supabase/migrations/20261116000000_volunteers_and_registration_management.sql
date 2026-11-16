@@ -1,5 +1,5 @@
 -- Volunteer registration and participant self-service.
--- Apply in the Supabase SQL Editor before deploying the matching application changes.
+-- Apply this migration in the Supabase SQL Editor before deploying the matching application changes.
 
 alter table public.participants
   add column if not exists registration_code_hash text,
@@ -11,6 +11,8 @@ alter table public.participants add constraint participants_registration_status_
 
 create unique index if not exists participants_registration_code_hash_uidx
   on public.participants (registration_code_hash) where registration_code_hash is not null;
+
+grant insert (registration_code_hash) on public.participants to anon, authenticated;
 
 create table if not exists public.volunteers (
   id uuid primary key default gen_random_uuid(),
@@ -34,107 +36,89 @@ create index if not exists volunteers_assignment_idx on public.volunteers (assig
 alter table public.volunteers enable row level security;
 
 drop policy if exists "Public can register volunteers" on public.volunteers;
-create policy "Public can register volunteers" on public.volunteers for insert to anon, authenticated with check (true);
+create policy "Public can register volunteers" on public.volunteers
+  for insert to anon, authenticated with check (true);
 
 drop policy if exists "Active organizers can read volunteers" on public.volunteers;
-create policy "Active organizers can read volunteers" on public.volunteers for select to authenticated
-using (exists (select 1 from public.organizer_profiles op where op.user_id = (select auth.uid()) and op.is_active = true));
+create policy "Active organizers can read volunteers" on public.volunteers
+  for select to authenticated
+  using (exists (select 1 from public.organizer_profiles op
+    where op.user_id = (select auth.uid()) and op.is_active = true));
 
+revoke all on public.volunteers from anon;
 grant insert on public.volunteers to anon, authenticated;
 grant select on public.volunteers to authenticated;
 
--- Only the email + high-entropy code hash + narrow action are accepted by this RPC.
-create or replace function public.manage_participant_registration(p_email text, p_code_hash text, p_action text)
-returns boolean language plpgsql security definer set search_path = ''
-as $$
-declare affected integer;
+-- Only the email, high-entropy code hash, and one permitted action are accepted by this RPC.
+create or replace function public.manage_participant_registration(
+  p_email text, p_code_hash text, p_action text
+) returns boolean
+language plpgsql security definer set search_path = ''
+as $manage$
+declare
+  affected integer;
 begin
   if p_email is null or length(p_email) > 254 or p_code_hash is null
-    or p_code_hash !~ '^[a-f0-9]{64}
+    or p_code_hash !~ '^[a-f0-9]{64}$' or p_action is null
+    or p_action not in ('withdraw', 'non_timed') then
     return false;
   end if;
+
   if p_action = 'withdraw' then
     update public.participants set registration_status = 'Withdrawn'
-    where lower(email) = lower(trim(p_email)) and registration_code_hash = p_code_hash and registration_status = 'Active';
+    where lower(email) = lower(trim(p_email))
+      and registration_code_hash = p_code_hash and registration_status = 'Active';
   else
     update public.participants set participating_for_time = false
-    where lower(email) = lower(trim(p_email)) and registration_code_hash = p_code_hash
+    where lower(email) = lower(trim(p_email))
+      and registration_code_hash = p_code_hash
       and registration_status = 'Active' and participating_for_time = true;
   end if;
+
   get diagnostics affected = row_count;
   return affected = 1;
 end;
-$$;
+$manage$;
 revoke all on function public.manage_participant_registration(text, text, text) from public;
 grant execute on function public.manage_participant_registration(text, text, text) to anon, authenticated;
 
--- Organizer dashboard can update registration status without deleting participant records.
+-- Organizers can mark a registration withdrawn; the original participant row is retained.
 grant update (registration_status) on public.participants to authenticated;
 drop policy if exists "Active organizers can update registration status" on public.participants;
-create policy "Active organizers can update registration status" on public.participants for update to authenticated
-using (exists (select 1 from public.organizer_profiles op where op.user_id = (select auth.uid()) and op.is_active = true))
-with check (exists (select 1 from public.organizer_profiles op where op.user_id = (select auth.uid()) and op.is_active = true));
+create policy "Active organizers can update registration status" on public.participants
+  for update to authenticated
+  using (exists (select 1 from public.organizer_profiles op
+    where op.user_id = (select auth.uid()) and op.is_active = true))
+  with check (exists (select 1 from public.organizer_profiles op
+    where op.user_id = (select auth.uid()) and op.is_active = true));
 
--- Public counter includes only active participants.
+-- Public registration totals exclude withdrawn participants.
 create or replace function public.get_public_participant_count()
 returns bigint language sql stable security definer set search_path = ''
-as $$ select count(*)::bigint from public.participants where registration_status = 'Active'; $$;
+as $count$
+  select count(*)::bigint from public.participants where registration_status = 'Active';
+$count$;
 revoke all on function public.get_public_participant_count() from public;
 grant execute on function public.get_public_participant_count() to anon, authenticated;
 
+-- Refresh the existing public count listener when a participant withdraws or is restored.
 create or replace function public.broadcast_participant_count_status_change()
 returns trigger language plpgsql security definer set search_path = ''
-as $$
+as $broadcast$
 begin
-  perform realtime.send(jsonb_build_object('updated_at', now()), 'participant_count_updated', 'public:participant-count', false);
+  perform realtime.send(
+    jsonb_build_object('updated_at', now()),
+    'participant_count_updated',
+    'public:participant-count',
+    false
+  );
   return new;
 end;
-$$;
+$broadcast$;
+
 drop trigger if exists participant_count_status_broadcast on public.participants;
-create trigger participant_count_status_broadcast after update of registration_status on public.participants
-for each row when (old.registration_status is distinct from new.registration_status)
-execute function public.broadcast_participant_count_status_change();
- or p_action is null or p_action not in ('withdraw', 'non_timed') then
-    return false;
-  end if;
-  if p_action = 'withdraw' then
-    update public.participants set registration_status = 'Withdrawn'
-    where lower(email) = lower(trim(p_email)) and registration_code_hash = p_code_hash and registration_status = 'Active';
-  else
-    update public.participants set participating_for_time = false
-    where lower(email) = lower(trim(p_email)) and registration_code_hash = p_code_hash
-      and registration_status = 'Active' and participating_for_time = true;
-  end if;
-  get diagnostics affected = row_count;
-  return affected = 1;
-end;
-$$;
-revoke all on function public.manage_participant_registration(text, text, text) from public;
-grant execute on function public.manage_participant_registration(text, text, text) to anon, authenticated;
-
--- Organizer dashboard can update registration status without deleting participant records.
-grant update (registration_status) on public.participants to authenticated;
-drop policy if exists "Active organizers can update registration status" on public.participants;
-create policy "Active organizers can update registration status" on public.participants for update to authenticated
-using (exists (select 1 from public.organizer_profiles op where op.user_id = (select auth.uid()) and op.is_active = true))
-with check (exists (select 1 from public.organizer_profiles op where op.user_id = (select auth.uid()) and op.is_active = true));
-
--- Public counter includes only active participants.
-create or replace function public.get_public_participant_count()
-returns bigint language sql stable security definer set search_path = ''
-as $$ select count(*)::bigint from public.participants where registration_status = 'Active'; $$;
-revoke all on function public.get_public_participant_count() from public;
-grant execute on function public.get_public_participant_count() to anon, authenticated;
-
-create or replace function public.broadcast_participant_count_status_change()
-returns trigger language plpgsql security definer set search_path = ''
-as $$
-begin
-  perform realtime.send(jsonb_build_object('updated_at', now()), 'participant_count_updated', 'public:participant-count', false);
-  return new;
-end;
-$$;
-drop trigger if exists participant_count_status_broadcast on public.participants;
-create trigger participant_count_status_broadcast after update of registration_status on public.participants
-for each row when (old.registration_status is distinct from new.registration_status)
-execute function public.broadcast_participant_count_status_change();
+create trigger participant_count_status_broadcast
+  after update of registration_status on public.participants
+  for each row
+  when (old.registration_status is distinct from new.registration_status)
+  execute function public.broadcast_participant_count_status_change();
