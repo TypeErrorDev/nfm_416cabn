@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function ManageRegistrationPage() {
   return (
     <main className="registration-page">
-      <div className="registration-container">
+      <div className="registration-card registration-card-wide">
         <div className="registration-heading">
           <p className="eyebrow">Ares Company · Participant services</p>
           <h1>Manage your registration</h1>
