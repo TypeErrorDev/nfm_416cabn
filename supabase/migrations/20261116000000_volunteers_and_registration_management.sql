@@ -111,5 +111,35 @@ $$;
 revoke all on function public.manage_participant_registration(text, text, text) from public;
 grant execute on function public.manage_participant_registration(text, text, text) to anon, authenticated;
 
--- Registration codes are never readable through the public client.
-revoke select, update, delete on public.volunteers from anon;
+-- Organizer access to volunteer records is read-only from the dashboard.
+grant insert on public.volunteers to anon, authenticated;
+grant select on public.volunteers to authenticated;
+
+-- Organizers can mark a participant withdrawn or restore an incorrectly withdrawn record.
+grant update (registration_status) on public.participants to authenticated;
+drop policy if exists "Active organizers can update registration status" on public.participants;
+create policy "Active organizers can update registration status"
+  on public.participants for update
+  to authenticated
+  using (exists (select 1 from public.organizer_profiles op where op.user_id = (select auth.uid()) and op.is_active = true))
+  with check (exists (select 1 from public.organizer_profiles op where op.user_id = (select auth.uid()) and op.is_active = true));
+
+-- Public totals exclude withdrawn registrations.
+drop function if exists public.get_public_participant_count();
+create function public.get_public_participant_count() returns bigint language sql security definer set search_path = ''
+as $ select count(*)::bigint from public.participants where registration_status = 'Active'; $;
+revoke all on function public.get_public_participant_count() from public;
+grant execute on function public.get_public_participant_count() to anon, authenticated;
+
+-- Existing insert/delete broadcasts remain; this trigger refreshes totals on status changes.
+create or replace function public.broadcast_participant_count_on_status_change()
+returns trigger language plpgsql security definer set search_path = '' as $
+begin
+  perform realtime.send(jsonb_build_object('event', 'participant_count_updated'), 'participant_count_updated', 'public:participant-count', true);
+  return new;
+end;
+$;
+drop trigger if exists participants_broadcast_count_on_status_change on public.participants;
+create trigger participants_broadcast_count_on_status_change after update of registration_status on public.participants
+for each row when (old.registration_status is distinct from new.registration_status)
+execute function public.broadcast_participant_count_on_status_change();
