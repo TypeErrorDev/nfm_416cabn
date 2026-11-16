@@ -33,7 +33,7 @@ create table if not exists public.volunteers (
   emergency_contact_relationship text not null check (length(trim(emergency_contact_relationship)) between 1 and 80),
   emergency_contact_phone text not null check (
     length(trim(emergency_contact_phone)) between 7 and 30
-    and length(regexp_replace(emergency_contact_phone, '\\D', '', 'g')) >= 7
+    and length(regexp_replace(emergency_contact_phone, '[^0-9]', '', 'g')) >= 7
   )
 );
 
