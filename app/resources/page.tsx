@@ -57,7 +57,7 @@ export default function ResourcesPage() {
               <li><strong>Age-group time standards</strong><span>Home page · Standards &amp; Requirements selector</span></li>
               <li><strong>Training overview</strong><span>Home page · Training &amp; Preparation</span></li>
               <li><strong>Official announcements</strong><span>Home page · Event Updates</span></li>
-              <li><strong>Route</strong><span>30K / 18.64 miles · San Luis Rey Riverwalk Bike Path · beachfront finish at O'Side Rock Garden</span></li>
+              <li><strong>Route</strong><span>30K / 18.64 miles · San Luis Rey Riverwalk Bike Path · beachfront finish at O&apos;Side Rock Garden</span></li>
             </ul>
           </section>
 
