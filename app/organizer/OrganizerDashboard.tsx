@@ -203,7 +203,8 @@ export default function OrganizerDashboard() {
   function exportVolunteers() {
     const headers = ["Registered at", "Full name", "Email", "Assignment", "Emergency contact", "Relationship", "Emergency contact phone"];
     const rows = volunteers.map((item) => [item.created_at, item.full_name, item.email, item.assignment, item.emergency_contact_name, item.emergency_contact_relationship, item.emergency_contact_phone]);
-    const csv = [headers, ...rows].map((row) => row.map(csvCell).join(",")).join("\\r\\n");
+    const csv = [headers, ...rows].map((row) => row.map(csvCell).join(",")).join("\\r\
+");
     const blob = new Blob(["\\uFEFF", csv], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement("a"); anchor.href = url; anchor.download = "norwegian-foot-march-volunteers.csv"; anchor.click(); URL.revokeObjectURL(url);
@@ -216,7 +217,8 @@ export default function OrganizerDashboard() {
       item.participating_for_time ? "Yes" : "No", item.ruck_time ?? "", item.completion_status, item.branch, item.unit,
       item.emergency_contact_name, item.emergency_contact_relationship, item.emergency_contact_phone,
     ]);
-    const csv = [headers, ...rows].map((row) => row.map(csvCell).join(",")).join("\r\n");
+    const csv = [headers, ...rows].map((row) => row.map(csvCell).join(",")).join("\r
+");
     const blob = new Blob(["\uFEFF", csv], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
@@ -321,7 +323,8 @@ export default function OrganizerDashboard() {
             <button className="btn btn-primary" onClick={() => {
               const headers = ["Registered at", "Full name", "Email", "Assignment", "Emergency contact", "Relationship", "Emergency contact phone"];
               const rows = volunteers.map((v) => [v.created_at, v.full_name, v.email, v.assignment, v.emergency_contact_name, v.emergency_contact_relationship, v.emergency_contact_phone]);
-              const csv = [headers, ...rows].map((row) => row.map(csvCell).join(",")).join("\r\n");
+              const csv = [headers, ...rows].map((row) => row.map(csvCell).join(",")).join("\r
+");
               const blob = new Blob(["\uFEFF", csv], { type: "text/csv;charset=utf-8;" });
               const url = URL.createObjectURL(blob); const anchor = document.createElement("a"); anchor.href = url; anchor.download = "norwegian-foot-march-volunteers.csv"; anchor.click(); URL.revokeObjectURL(url);
             }} disabled={volunteers.length === 0}>Export volunteer CSV</button>
