@@ -12,10 +12,9 @@ export default function RegistrationPage() {
           January 23, 2027, in Oceanside, California.
         </p>
         <div className="registration-notice">
-          <strong>Before you register</strong>
+          <strong>Event-day overview</strong>
           <p>
-            Event-day schedule, route details, equipment requirements, and additional
-            participant instructions will be published as they are confirmed.
+            Check-in is 4:00–4:30 AM at O'Side Rock Garden on January 23, 2027. The march begins at 5:30 AM at the San Luis Rey River Bike Trail western entrance. The course is 30K (18.64 miles), with an 11:30 AM completion cutoff. Participation is free. Advance registration is encouraged; walk-up registration is also accepted during check-in.
           </p>
         </div>
         <RegistrationForm />
