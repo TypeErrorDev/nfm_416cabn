@@ -21,10 +21,7 @@ type Participant = {
   emergency_contact_name: string;
   emergency_contact_relationship: string;
   emergency_contact_phone: string;
-  registration_status: "Active" | "Withdrawn";
 };
-
-type Volunteer = { id: string; created_at: string; full_name: string; email: string; assignment: string; emergency_contact_name: string; emergency_contact_relationship: string; emergency_contact_phone: string; };
 
 type Volunteer = { id: string; created_at: string; full_name: string; email: string; assignment: string; emergency_contact_name: string; emergency_contact_relationship: string; emergency_contact_phone: string; };
 
@@ -40,7 +37,7 @@ export default function OrganizerDashboard() {
   const router = useRouter();
   const [participants, setParticipants] = useState<Participant[]>([]);
   const [volunteers, setVolunteers] = useState<Volunteer[]>([]);
-  const [activeRoster, setActiveRoster] = useState<"participants" | "volunteers">("participants");\n  const [volunteers, setVolunteers] = useState<Volunteer[]>([]);
+  const [volunteers, setVolunteers] = useState<Volunteer[]>([]);
   const [viewState, setViewState] = useState<ViewState>("loading");
   const [query, setQuery] = useState("");
   const [message, setMessage] = useState("");
@@ -254,6 +251,8 @@ export default function OrganizerDashboard() {
 
         <section className="organizer-summary" aria-label="Registration summary">
           <div><span>Active participants</span><strong>{participants.filter((item) => item.registration_status === "Active").length.toLocaleString("en-US")}</strong></div>\n          <div><span>Withdrawn participants</span><strong>{participants.filter((item) => item.registration_status === "Withdrawn").length.toLocaleString("en-US")}</strong></div>\n          <div><span>Volunteers</span><strong>{volunteers.length.toLocaleString("en-US")}</strong></div>
+          <div><span>Withdrawn participants</span><strong>{participants.filter((item) => item.registration_status === "Withdrawn").length.toLocaleString("en-US")}</strong></div>
+          <div><span>Volunteers</span><strong>{volunteers.length.toLocaleString("en-US")}</strong></div>
           <div><span>Participating for time</span><strong>{participants.filter((item) => item.participating_for_time).length.toLocaleString("en-US")}</strong></div>
           <div><span>Not participating for time</span><strong>{participants.filter((item) => !item.participating_for_time).length.toLocaleString("en-US")}</strong></div>
         </section>
