@@ -55,7 +55,7 @@ export default function RegistrationForm() {
           assignment: String(data.get("assignment") ?? ""),
         };
 
-    if (registrationType === "participant" && payload.branch !== "CIV" && !payload.unit) {
+    if (registrationType === "participant" && String(data.get("branch") ?? "") !== "CIV" && !String(data.get("unit") ?? "").trim()) {
       setStatus("error");
       setMessage("Unit is required for military participants.");
       return;
