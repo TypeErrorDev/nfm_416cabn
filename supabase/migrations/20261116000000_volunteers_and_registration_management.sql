@@ -127,18 +127,18 @@ create policy "Active organizers can update registration status"
 -- Public totals exclude withdrawn registrations.
 drop function if exists public.get_public_participant_count();
 create function public.get_public_participant_count() returns bigint language sql security definer set search_path = ''
-as $ select count(*)::bigint from public.participants where registration_status = 'Active'; $;
+as $fn$ select count(*)::bigint from public.participants where registration_status = 'Active'; $fn$;
 revoke all on function public.get_public_participant_count() from public;
 grant execute on function public.get_public_participant_count() to anon, authenticated;
 
 -- Existing insert/delete broadcasts remain; this trigger refreshes totals on status changes.
 create or replace function public.broadcast_participant_count_on_status_change()
-returns trigger language plpgsql security definer set search_path = '' as $
+returns trigger language plpgsql security definer set search_path = '' as $fn$
 begin
-  perform realtime.send(jsonb_build_object('event', 'participant_count_updated'), 'participant_count_updated', 'public:participant-count', true);
+  perform realtime.send(jsonb_build_object('event', 'participant_count_updated'), 'participant_count_updated', 'public:participant-count', false);
   return new;
 end;
-$;
+$fn$;
 drop trigger if exists participants_broadcast_count_on_status_change on public.participants;
 create trigger participants_broadcast_count_on_status_change after update of registration_status on public.participants
 for each row when (old.registration_status is distinct from new.registration_status)
