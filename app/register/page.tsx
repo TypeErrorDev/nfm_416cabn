@@ -5,7 +5,7 @@ export default function RegistrationPage() {
   return (
     <main className="registration-page">
       <div className="registration-card registration-card-wide">
-        <p className="eyebrow">416th Civil Affairs Battalion · Oceanside, California</p>
+        <p className="eyebrow">Ares Company · Oceanside, California</p>
         <h1>Norwegian Foot March Registration</h1>
         <p className="registration-lead">
           Submit your participant information for the Norwegian Foot March scheduled for
