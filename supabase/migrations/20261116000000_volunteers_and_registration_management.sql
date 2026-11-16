@@ -192,7 +192,7 @@ begin
     jsonb_build_object('updated_at', now()),
     'participant_count_updated',
     'public:participant-count',
-    true
+    false
   );
   return new;
 end;
