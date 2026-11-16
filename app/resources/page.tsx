@@ -21,7 +21,7 @@ export default function ResourcesPage() {
             <div className="resources-section-heading">
               <p className="eyebrow">Course reference</p>
               <h2 id="route-gallery-title">Route maps</h2>
-              <p>The 30K course follows the San Luis Rey Riverwalk Bike Path as an out-and-back route, starting at the western trail entrance and finishing at O&apos;Side Rock Garden.</p>
+              <p>The 30K course follows the San Luis Rey Riverwalk Bike Path as an out-and-back route. Registration, check-in, and the march start are at the western trailhead; the finish is at O&apos;Side Rock Garden.</p>
             </div>
             <div className="route-gallery">
               <figure className="route-gallery-overview">
@@ -75,11 +75,11 @@ export default function ResourcesPage() {
               <h2 id="guidance-title">Where to find information</h2>
             </div>
             <ul className="resource-list">
-              <li><strong>Event schedule and timeline</strong><span>Check-in 4:00–4:30 AM · Formation 4:45 AM · Start 5:30 AM · Cutoff 11:30 AM</span></li>
+              <li><strong>Event schedule and timeline</strong><span>Trailhead registration/check-in 4:00–4:30 AM · Formation 4:45 AM at the trailhead · Start 5:30 AM from the same trailhead · Cutoff 11:30 AM</span></li>
               <li><strong>Age-group time standards</strong><span>Home page · Standards &amp; Requirements selector</span></li>
               <li><strong>Training overview</strong><span>Home page · Training &amp; Preparation</span></li>
               <li><strong>Official announcements</strong><span>Home page · Event Updates</span></li>
-              <li><strong>Route</strong><span>30K / 18.64 miles · San Luis Rey Riverwalk Bike Path · beachfront finish at O&apos;Side Rock Garden</span></li>
+              <li><strong>Route</strong><span>30K / 18.64 miles · Start and registration at the western trailhead of the San Luis Rey River Bike Trail · beachfront finish at O&apos;Side Rock Garden</span></li>
             </ul>
           </section>
 
