@@ -21,7 +21,10 @@ type Participant = {
   emergency_contact_name: string;
   emergency_contact_relationship: string;
   emergency_contact_phone: string;
+  registration_status: "Active" | "Withdrawn";
 };
+
+type Volunteer = { id: string; created_at: string; full_name: string; email: string; assignment: string; emergency_contact_name: string; emergency_contact_relationship: string; emergency_contact_phone: string; };
 
 type Volunteer = { id: string; created_at: string; full_name: string; email: string; assignment: string; emergency_contact_name: string; emergency_contact_relationship: string; emergency_contact_phone: string; };
 
@@ -35,7 +38,9 @@ function csvCell(value: string | number | boolean | null) {
 
 export default function OrganizerDashboard() {
   const router = useRouter();
-  const [participants, setParticipants] = useState<Participant[]>([]);\n  const [volunteers, setVolunteers] = useState<Volunteer[]>([]);
+  const [participants, setParticipants] = useState<Participant[]>([]);
+  const [volunteers, setVolunteers] = useState<Volunteer[]>([]);
+  const [activeRoster, setActiveRoster] = useState<"participants" | "volunteers">("participants");\n  const [volunteers, setVolunteers] = useState<Volunteer[]>([]);
   const [viewState, setViewState] = useState<ViewState>("loading");
   const [query, setQuery] = useState("");
   const [message, setMessage] = useState("");
@@ -87,7 +92,17 @@ export default function OrganizerDashboard() {
       if (!data || data.length < pageSize) break;
     }
 
+    const { data: volunteerRows, error: volunteerError } = await supabase
+      .from("volunteers")
+      .select("id,created_at,full_name,email,assignment,emergency_contact_name,emergency_contact_relationship,emergency_contact_phone")
+      .order("created_at", { ascending: false });
+    if (volunteerError) {
+      setViewState("error");
+      setMessage("We could not load volunteer registrations. Apply the volunteer database migration and check organizer permissions.");
+      return;
+    }
     setParticipants(allParticipants);
+    setVolunteers((volunteerRows ?? []) as Volunteer[]);
     setViewState("ready");
     setMessage("");
   }, [router]);
@@ -104,6 +119,8 @@ export default function OrganizerDashboard() {
       cancelled = true;
     };
   }, [loadParticipants]);
+
+  const activeParticipants = participants.filter((item) => item.registration_status === "Active");
 
   const filteredParticipants = useMemo(() => {
     const normalized = query.trim().toLowerCase();
@@ -176,22 +193,26 @@ export default function OrganizerDashboard() {
     setSavingTimeId(null);
   }
 
-  async function handleDelete(participant: Participant) {
-    const confirmed = window.confirm(`Remove the registration for ${participant.full_name}? This cannot be undone.`);
-    if (!confirmed) return;
-
+  async function withdrawParticipant(participant: Participant) {
+    if (participant.registration_status === "Withdrawn") return;
+    if (!window.confirm(`Mark ${participant.full_name} as withdrawn? Their record will be retained.`)) return;
     setBusyId(participant.id);
-    setMessage("");
-    const supabase = getSupabaseBrowserClient();
-    const { error } = await supabase.from("participants").delete().eq("id", participant.id);
-
-    if (error) {
-      setMessage("The registration could not be removed. Verify the organizer DELETE policy in Supabase.");
-    } else {
-      setParticipants((current) => current.filter((item) => item.id !== participant.id));
-      setMessage("Registration removed.");
+    const { error } = await getSupabaseBrowserClient().from("participants").update({ registration_status: "Withdrawn" }).eq("id", participant.id);
+    if (error) setMessage("Could not update registration status. Apply the database migration and verify organizer update permissions.");
+    else {
+      setParticipants((current) => current.map((item) => item.id === participant.id ? { ...item, registration_status: "Withdrawn" } : item));
+      setMessage(`${participant.full_name} marked as withdrawn. Record retained.`);
     }
     setBusyId(null);
+  }
+
+  function exportVolunteers() {
+    const headers = ["Registered at", "Full name", "Email", "Assignment", "Emergency contact", "Relationship", "Emergency contact phone"];
+    const rows = volunteers.map((item) => [item.created_at, item.full_name, item.email, item.assignment, item.emergency_contact_name, item.emergency_contact_relationship, item.emergency_contact_phone]);
+    const csv = [headers, ...rows].map((row) => row.map(csvCell).join(",")).join("\\r\\n");
+    const blob = new Blob(["\\uFEFF", csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a"); anchor.href = url; anchor.download = "norwegian-foot-march-volunteers.csv"; anchor.click(); URL.revokeObjectURL(url);
   }
 
   function exportCsv() {
@@ -247,7 +268,7 @@ export default function OrganizerDashboard() {
           {message && <p className="registration-feedback" role="status">{message}</p>}
           <div className="organizer-table-scroll">
             <table className="organizer-table">
-              <thead><tr><th>Participant</th><th>Age</th><th>Category</th><th>Branch / unit</th><th>For time?</th><th>Ruck time</th><th>Completion status</th><th>Registration</th><th>Registered</th>{showContacts && <th>Emergency contact</th>}<th><span className="sr-only">Actions</span></th></tr></thead>
+              <thead><tr><th>Participant</th><th>Age</th><th>Category</th><th>Branch / unit</th><th>For time?</th><th>Registration</th><th>Ruck time</th><th>Completion status</th><th>Registration</th><th>Registered</th>{showContacts && <th>Emergency contact</th>}<th><span className="sr-only">Actions</span></th></tr></thead>
               <tbody>
                 {filteredParticipants.map((item) => <tr key={item.id}>
                   <td><strong>{item.full_name}</strong><span>{item.email}</span></td>
