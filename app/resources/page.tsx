@@ -21,12 +21,12 @@ export default function ResourcesPage() {
             <div className="resources-section-heading">
               <p className="eyebrow">Course reference</p>
               <h2 id="route-gallery-title">Route maps</h2>
-              <p>The 30K course follows the San Luis Rey Riverwalk Bike Path as an out-and-back route. Registration, check-in, and the march start are at the western trailhead; the finish is at O&apos;Side Rock Garden.</p>
+              <p>The 30K course follows the San Luis Rey Riverwalk Bike Path as an out-and-back route. Registration, check-in, and the march start are at the Mance Buchanon Park Playground; the finish is at O&apos;Side Rock Garden.</p>
             </div>
             <div className="route-gallery">
               <figure className="route-gallery-overview">
-                <Image src="/route-overview.jpg" alt="Overall route map for the Norwegian Foot March along the San Luis Rey Riverwalk Bike Path" width={1600} height={1000} />
-                <figcaption><strong>Full route overview</strong><span>30K out-and-back course</span></figcaption>
+                <Image src="/route-sequence.svg" alt="Overall route map for the Norwegian Foot March along the San Luis Rey Riverwalk Bike Path" width={1600} height={1000} />
+                <figcaption><strong>Revised route sequence</strong><span>Playground → Rock Garden → eastern turnaround → Playground</span></figcaption>
               </figure>
               <div className="route-gallery-details">
                 <figure><Image src="/route-start-area.jpg" alt="Detailed route map view showing one section of the course" width={1200} height={900} /><figcaption><strong>Route detail 1</strong><span>Course detail from the event route map</span></figcaption></figure>
@@ -79,7 +79,7 @@ export default function ResourcesPage() {
               <li><strong>Age-group time standards</strong><span>Home page · Standards &amp; Requirements selector</span></li>
               <li><strong>Training overview</strong><span>Home page · Training &amp; Preparation</span></li>
               <li><strong>Official announcements</strong><span>Home page · Event Updates</span></li>
-              <li><strong>Route</strong><span>30K / 18.64 miles · Start and registration at the western trailhead of the San Luis Rey River Bike Trail · beachfront finish at O&apos;Side Rock Garden</span></li>
+              <li><strong>Route</strong><span>30K / 18.64 miles · Start and registration at the Mance Buchanon Park Playground of the San Luis Rey River Bike Trail · beachfront finish at O&apos;Side Rock Garden</span></li>
             </ul>
           </section>
 
