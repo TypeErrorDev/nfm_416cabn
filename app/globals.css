@@ -1797,8 +1797,21 @@ a:focus-visible {
 .route-gallery figure img {
   display: block;
   width: 100%;
+  aspect-ratio: 16 / 9;
   height: auto;
+  object-fit: contain;
   background: #fff;
+}
+.route-gallery-details figure {
+  display: flex;
+  flex-direction: column;
+}
+.route-gallery-details figure img {
+  flex: 0 0 auto;
+}
+.route-gallery-details figcaption {
+  min-height: 96px;
+  align-content: start;
 }
 .route-gallery figcaption {
   display: grid;
