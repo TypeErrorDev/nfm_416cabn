@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
 <title id="title">Norwegian Foot March route sequence</title>
-<desc id="desc">Schematic, not to scale. Start and finish at Mance Buchanon Park Playground. Route west to O'side Rock Garden, return east to the eastern turnaround on the San Luis Rey River Trail, then return west to the playground.</desc>
+<desc id="desc">Schematic, not to scale. Start and finish at Mance Buchanon Park Playground. Route west to O'side Rock Garden, return east past Mance Buchanon Park to the easternmost turnaround on the San Luis Rey River Trail, then return west to the playground.</desc>
 <rect width="1200" height="700" fill="#f3f5ef"/>
 <path d="M90 110 C240 160 180 260 330 300 S520 360 640 300 S850 180 1080 260" fill="none" stroke="#d4e3e8" stroke-width="58" stroke-linecap="round"/>
 <path d="M90 110 C240 160 180 260 330 300 S520 360 640 300 S850 180 1080 260" fill="none" stroke="#8bb7c8" stroke-width="4" stroke-dasharray="14 12"/>
@@ -18,6 +18,6 @@
 <circle cx="440" cy="300" r="25" fill="#b65e2d" stroke="#fff" stroke-width="6"/><text x="440" y="309" text-anchor="middle" font-size="25" font-weight="700" fill="#fff">2</text>
 <text x="465" y="340" font-size="24" font-weight="700">O'Side Rock Garden</text><text x="465" y="370" font-size="19">First turnaround · west</text>
 <circle cx="1030" cy="265" r="25" fill="#315e91" stroke="#fff" stroke-width="6"/><text x="1030" y="274" text-anchor="middle" font-size="25" font-weight="700" fill="#fff">3</text>
-<text x="1020" y="215" text-anchor="end" font-size="24" font-weight="700">Eastern trail turnaround</text><text x="1020" y="240" text-anchor="end" font-size="19">Second turnaround</text>
+<text x="1020" y="215" text-anchor="end" font-size="24" font-weight="700">Eastern trail turnaround</text><text x="1020" y="240" text-anchor="end" font-size="19">Second turnaround · beyond the park</text>
 <rect x="55" y="615" width="1090" height="55" rx="12" fill="#fff" stroke="#d5ddd3"/><text x="80" y="650" font-size="21" font-weight="700">Sequence: Playground → Rock Garden → Eastern turnaround → Playground</text>
 </g></svg>
