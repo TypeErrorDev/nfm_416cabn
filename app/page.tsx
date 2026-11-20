@@ -11,17 +11,17 @@ const eventFacts = [
 ];
 
 const scheduleItems = [
-  { time: "4:00–4:30 AM", title: "Participant check-in and first ruck weigh-in", description: "Report to the western trailhead of the San Luis Rey River Bike Trail for registration, accountability, and the initial 25 lb dry-weight rucksack inspection. Check-in, formation, briefing, and the official march start all take place at this trailhead." },
+  { time: "4:00–4:30 AM", title: "Participant check-in and first ruck weigh-in", description: "Report to the Mance Buchanon Park Playground (pending park-use approval) for registration, accountability, and the initial 25 lb dry-weight rucksack inspection. Check-in, formation, briefing, and the official march start all take place at the park." },
   { time: "4:45 AM", title: "Opening formation and safety briefing", description: "Participants receive the event-day briefing and final instructions." },
-  { time: "5:30 AM", title: "Official march start", description: "The 30K (18.64-mile) march begins at the western trailhead of the San Luis Rey River Bike Trail, which is also the registration and check-in location." },
+  { time: "5:30 AM", title: "Official march start", description: "The 18.6-mile march begins at the Mance Buchanon Park Playground (pending park-use approval), which is also the registration and check-in location." },
   { time: "11:30 AM", title: "Completion cutoff", description: "Six hours after the official start. Participants must report to the finish-line table and complete the finish procedures by this time." },
 ];
 
 const routeItems = [
   { label: "Route", value: "San Luis Rey Riverwalk Bike Path · out-and-back" },
-  { label: "March distance", value: "30K / 18.64 miles" },
-  { label: "Start", value: "San Luis Rey River Bike Trail western entrance" },
-  { label: "Finish", value: "O'Side Rock Garden · beachfront" },
+  { label: "March distance", value: "18.6 miles" },
+  { label: "Start / finish", value: "Mance Buchanon Park Playground (pending approval)" },
+  { label: "Turnarounds", value: "O'Side Rock Garden, then eastern trail turnaround" },
   { label: "Route support", value: "Three volunteer-staffed water/first-aid stations, serving both directions" },
 ];
 
@@ -141,8 +141,8 @@ export default function Home() {
             <div className="info-block-heading"><div><p className="eyebrow">Course details</p><h3>Route &amp; checkpoints</h3></div><span className="placeholder-tag">CONOP route</span></div>
             <div className="route-gallery" aria-label="Route maps">
               <figure className="route-gallery-overview">
-                <Image src="/route-overview.jpg" alt="Overall route map for the Norwegian Foot March along the San Luis Rey Riverwalk Bike Path" width={1600} height={1000} priority />
-                <figcaption><strong>Full route overview</strong><span>30K out-and-back course · San Luis Rey Riverwalk Bike Path</span></figcaption>
+                <Image src="/route-sequence.svg" alt="Overall route map for the Norwegian Foot March along the San Luis Rey Riverwalk Bike Path" width={1600} height={1000} priority />
+                <figcaption><strong>Revised route sequence</strong><span>Playground → Rock Garden → eastern turnaround → Playground</span></figcaption>
               </figure>
               <div className="route-gallery-details">
                 <figure>
@@ -217,7 +217,7 @@ export default function Home() {
           </div>
           <div className="homepage-faq">
             <details><summary>How do I register?</summary><p>Online advance registration is encouraged and remains open through event day. Walk-up registration is also accepted during the 4:00–4:30 AM check-in window. Participation is free.</p></details>
-            <details><summary>Where does the march start and finish?</summary><p>Registration, check-in, formation, and the march start are all at the western trailhead of the San Luis Rey River Bike Trail. The march finishes at O&apos;Side Rock Garden near the beach.</p></details>
+            <details><summary>Where does the march start and finish?</summary><p>Registration, check-in, formation, and the march start are all at the Mance Buchanon Park Playground (pending park-use approval). The march finishes at O&apos;Side Rock Garden near the beach.</p></details>
             <details><summary>Which completion time applies to me?</summary><p>Use the <a href="#standards">Standards &amp; Requirements</a> section. Select your age group and standard category in the dropdowns to display the time supplied for this event. Review the final participant instructions for any additional requirements.</p></details>
             <details><summary>How should I prepare for the march?</summary><p>Review the <a href="#preparation">Norwegian Foot March Training and Preparation Packet</a>. It covers progressive endurance training, rucking, footwear and equipment preparation, hydration, fueling, and recovery. It is general preparation guidance, not a substitute for the official event instructions.</p></details>
             <details><summary>What should I bring?</summary><p>Bring your own water, snacks/energy food, personal first-aid supplies, headlamp or suitable light source, and reflective belt worn around your rucksack. Event water refills and basic CLS supplies will be available at route stations, but snacks are not guaranteed.</p></details>
