@@ -140,6 +140,10 @@ export default function Home() {
           <div id="route-and-checkpoints" className="info-block route-block">
             <div className="info-block-heading"><div><p className="eyebrow">Course details</p><h3>Route &amp; checkpoints</h3></div><span className="placeholder-tag">CONOP route</span></div>
             <div className="route-gallery" aria-label="Route maps">
+              <figure className="route-gallery-overview">
+                <Image src="/route-overview.png" alt="Overall route map for the Norwegian Foot March along the San Luis Rey Riverwalk Bike Path" width={1600} height={1000} priority />
+                <figcaption><strong>Revised route sequence</strong><span>Mance Buchanon Park → O'Side Rock Garden turnaround → Easternmost Bike Trail point turnaround → Mance Buchanon Park</span></figcaption>
+              </figure>
               <div className="route-gallery-details">
                 <figure>
                   <Image src="/route-start.png" alt="Start location at Mance Buchanon Park Playground" width={1200} height={900} />
