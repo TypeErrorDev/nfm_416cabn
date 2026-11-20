@@ -20,7 +20,7 @@ const scheduleItems = [
 const routeItems = [
   { label: "Route", value: "San Luis Rey Riverwalk Bike Path · out-and-back" },
   { label: "March distance", value: "18.6 miles" },
-  { label: "Start / finish", value: "Mance Buchanon Park Playground (pending approval)" },
+  { label: "Start / finish", value: "Mance Buchanon Park Playground" },
   { label: "Turnarounds", value: "O'Side Rock Garden, then eastern trail turnaround" },
   { label: "Route support", value: "Three volunteer-staffed water/first-aid stations, serving both directions" },
 ];

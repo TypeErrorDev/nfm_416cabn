@@ -75,7 +75,7 @@ export default function ResourcesPage() {
               <h2 id="guidance-title">Where to find information</h2>
             </div>
             <ul className="resource-list">
-              <li><strong>Event schedule and timeline</strong><span>Park registration/check-in 4:00–4:30 AM · Formation 4:45 AM at Mance Buchanon Park Playground · Start 5:30 AM from the playground (pending approval) · Cutoff 11:30 AM</span></li>
+              <li><strong>Event schedule and timeline</strong><span>Park registration/check-in 4:00–4:30 AM · Formation 4:45 AM at Mance Buchanon Park Playground · Start 5:30 AM from the playground  · Cutoff 11:30 AM</span></li>
               <li><strong>Age-group time standards</strong><span>Home page · Standards &amp; Requirements selector</span></li>
               <li><strong>Training overview</strong><span>Home page · Training &amp; Preparation</span></li>
               <li><strong>Official announcements</strong><span>Home page · Event Updates</span></li>
