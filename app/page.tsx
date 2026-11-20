@@ -140,22 +140,22 @@ export default function Home() {
           <div id="route-and-checkpoints" className="info-block route-block">
             <div className="info-block-heading"><div><p className="eyebrow">Course details</p><h3>Route &amp; checkpoints</h3></div><span className="placeholder-tag">CONOP route</span></div>
             <div className="route-gallery" aria-label="Route maps">
-              <figure className="route-gallery-overview">
-                <Image src="/route-sequence.svg" alt="Overall route map for the Norwegian Foot March along the San Luis Rey Riverwalk Bike Path" width={1600} height={1000} priority />
-                <figcaption><strong>Revised route sequence</strong><span>Playground → Rock Garden → eastern turnaround → Playground</span></figcaption>
-              </figure>
               <div className="route-gallery-details">
                 <figure>
-                  <Image src="/route-start-area.jpg" alt="Detailed route map view showing one section of the Norwegian Foot March course" width={1200} height={900} />
-                  <figcaption><strong>Route detail 1</strong><span>Course detail from the event route map</span></figcaption>
+                  <Image src="/route-start.png" alt="Start location at Mance Buchanon Park Playground" width={1200} height={900} />
+                  <figcaption><strong>Starting Point</strong><span>Mance Buchanon Park Playground</span></figcaption>
                 </figure>
                 <figure>
-                  <Image src="/route-inland-turnaround.jpg" alt="Detailed route map view showing another section of the Norwegian Foot March course" width={1200} height={900} />
-                  <figcaption><strong>Route detail 2</strong><span>Course detail from the event route map</span></figcaption>
+                  <Image src="/route-turnaround-1.png" alt="Turnaround Point 1 at O'Side Rock Garden traffic circle" width={1200} height={900} />
+                  <figcaption><strong>Turnaround Point 1</strong><span>O'Side Rock Garden / Traffic Circle</span></figcaption>
                 </figure>
                 <figure>
-                  <Image src="/route-finish-area.jpg" alt="Detailed route map view showing a further section of the Norwegian Foot March course" width={1200} height={900} />
-                  <figcaption><strong>Route detail 3</strong><span>Course detail from the event route map</span></figcaption>
+                  <Image src="/route-turnaround-2.png" alt="Turnaround Point 2 at the easternmost bike trail point" width={1200} height={900} />
+                  <figcaption><strong>Turnaround Point 2</strong><span>Easternmost Bike Trail Point</span></figcaption>
+                </figure>
+                <figure>
+                  <Image src="/route-finish.png" alt="Finish line at Mance Buchanon Park Playground" width={1200} height={900} />
+                  <figcaption><strong>Finish Line</strong><span>Mance Buchanon Park Playground</span></figcaption>
                 </figure>
               </div>
               <p className="route-gallery-note">Use the event-day instructions and volunteer direction at checkpoints. Map images are provided as visual references and do not replace the safety briefing.</p>
