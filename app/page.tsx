@@ -13,13 +13,13 @@ const eventFacts = [
 const scheduleItems = [
   { time: "4:00–4:30 AM", title: "Participant check-in and first ruck weigh-in", description: "Report to the Mance Buchanon Park Playground (pending park-use approval) for registration, accountability, and the initial 25 lb dry-weight rucksack inspection. Check-in, formation, briefing, and the official march start all take place at the park." },
   { time: "4:45 AM", title: "Opening formation and safety briefing", description: "Participants receive the event-day briefing and final instructions." },
-  { time: "5:30 AM", title: "Official march start", description: "The 30K (18.64-mile) march begins at the Mance Buchanon Park Playground (pending park-use approval), which is also the registration and check-in location." },
+  { time: "5:30 AM", title: "Official march start", description: "The 18.6-mile march begins at the Mance Buchanon Park Playground (pending park-use approval), which is also the registration and check-in location." },
   { time: "11:30 AM", title: "Completion cutoff", description: "Six hours after the official start. Participants must report to the finish-line table and complete the finish procedures by this time." },
 ];
 
 const routeItems = [
   { label: "Route", value: "San Luis Rey Riverwalk Bike Path · out-and-back" },
-  { label: "March distance", value: "30K / 18.64 miles" },
+  { label: "March distance", value: "18.6 miles" },
   { label: "Start / finish", value: "Mance Buchanon Park Playground (pending approval)" },
   { label: "Turnarounds", value: "O'Side Rock Garden, then eastern trail turnaround" },
   { label: "Route support", value: "Three volunteer-staffed water/first-aid stations, serving both directions" },
